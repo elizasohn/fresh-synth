@@ -2,6 +2,7 @@
   ==============================================================================
 
     This file contains the basic framework code for a JUCE plugin processor.
+    This file is where the backend audio processing is done -p
 
   ==============================================================================
 */

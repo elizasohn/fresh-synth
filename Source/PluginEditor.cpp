@@ -2,6 +2,7 @@
   ==============================================================================
 
     This file contains the basic framework code for a JUCE plugin editor.
+    This file is where the front-end interface is created -p
 
   ==============================================================================
 */
@@ -30,7 +31,7 @@ FreshSynthAudioProcessorEditor::~FreshSynthAudioProcessorEditor()
 }
 
 //==============================================================================
-// This is kind of like a screen update/refresh
+// This is kind of like a screen update/refresh -p
 void FreshSynthAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
@@ -41,7 +42,7 @@ void FreshSynthAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawFittedText ("Now, this is a story all about how my life got flipped-turned upside down", getLocalBounds(), juce::Justification::centred, 1);
 }
 
-// Where you actually lay out the visual elements of the plugin
+// Where you actually lay out the visual elements of the plugin -p
 void FreshSynthAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any

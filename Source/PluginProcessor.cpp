@@ -2,11 +2,10 @@
   ==============================================================================
 
     This file contains the basic framework code for a JUCE plugin processor.
+    This file is where the backend audio processing is done -p
 
   ==============================================================================
 */
-
-// This file is where the backend audio processing is done
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
@@ -93,21 +92,19 @@ void FreshSynthAudioProcessor::changeProgramName (int index, const juce::String&
 }
 
 //==============================================================================
-// Tends to get called when the plugin is in a stop state and you are getting ready to process audio again or for the first time
-// Good place to clear out any left over values in the processor
+// Tends to get called when the plugin is in a stop state and you are getting ready to process audio again or for the first time -p
+// Good place to clear out any left over values in the processor -p
 void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     
-    // Set up MIDI in using the default midi device
+    // Set up MIDI in using the default midi device. Stretch goal: Choosable MIDI device menu
     MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
-    Logger::outputDebugString(midiDevice.name);
-    Logger::outputDebugString(midiDevice.identifier);
-
     this->mEditorLogText = midiDevice.name;
 
-    /*
+    /* 
+    // A way to grab info on all the available midi devices. Uses JUCE array / MidiDeviceInfo
     Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
     if (midiDevices.isEmpty())
         Logger::outputDebugString("NO MIDI FOUNNNNNNNNNND");
@@ -148,8 +145,8 @@ bool FreshSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layout
 }
 #endif
 
-// The audio-callback function. This gets called from a high-priority thread.
-// Dont do here: any logging, memory allocation (results in crackles)
+// The audio-callback function. This gets called from a high-priority thread. -p
+// Dont do here: any logging, memory allocation (results in crackles) -p
 void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
@@ -191,8 +188,8 @@ juce::AudioProcessorEditor* FreshSynthAudioProcessor::createEditor()
 }
 
 //==============================================================================
-// If you want to save the state of the plugin and load it up later. That is done here.
-// getStateInfo saves a snapshot of the plugin at the time
+// If you want to save the state of the plugin and load it up later. That is done here. -p
+// getStateInfo saves a snapshot of the plugin at the time -p
 void FreshSynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
@@ -200,7 +197,7 @@ void FreshSynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
     // as intermediaries to make it easy to save and load complex data.
 }
 
-// useStateInformation uses the data from a snapshot and load it into your plugin
+// useStateInformation uses the data from a snapshot and load it into your plugin -p
 void FreshSynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
