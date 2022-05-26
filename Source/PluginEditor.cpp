@@ -18,12 +18,12 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
 
-    //testLabel.setFont(Font(16.0f, Font::bold));
-    testLabel.setText(p.mEditorLogText, dontSendNotification);
-    //testLabel.setColour(Label::textColourId, Colours::white);
-    testLabel.setBounds(0, 0, 200, 20);
+    mMidiDisplay.setFont(Font(10.0f, Font::plain));
+    mMidiDisplay.setText(p.mMidiText, dontSendNotification);
+    //mMidiDisplay.setColour(Label::textColourId, Colours::white);
+    mMidiDisplay.setBounds(0, 0, 200, 20);
 
-    addAndMakeVisible(testLabel);
+    addAndMakeVisible(mMidiDisplay);
 
 
     setSize(960, 540);

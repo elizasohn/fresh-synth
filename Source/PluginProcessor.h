@@ -55,7 +55,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     // OUR VARIABLES ===============================================================
-    String mEditorLogText = "Waiting...";
+    String mMidiText = "Waiting...";
 
 private:
     //==============================================================================

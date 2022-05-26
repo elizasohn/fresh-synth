@@ -101,7 +101,7 @@ void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     
     // Set up MIDI in using the default midi device. Stretch goal: Choosable MIDI device menu
     MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
-    this->mEditorLogText = midiDevice.name;
+    this->mMidiText = "MIDI Device: " + midiDevice.name;
     /* 
         // A way to grab info on all the available midi devices. Uses JUCE array / MidiDeviceInfo
         Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
