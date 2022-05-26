@@ -18,17 +18,9 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
 
-    // mEditorLogger.setBoundingBox(Parallelogram<float>(Point<float>(0.0f, 0.0f), Point<float>(1.5f, 0.0f), Point<float>(0.0f, -1.5f)));
-    // mEditorLogger.setText(p.mEditorLogText);
-    // mEditorLogger.setColour(juce::Colours::white);
-    // mEditorLogger.setFontHeight(15.0f);
-    // mEditorLogger.setFontHorizontalScale(2.0f);
-    // addAndMakeVisible(mEditorLogger);
-
     //testLabel.setFont(Font(16.0f, Font::bold));
     testLabel.setText(p.mEditorLogText, dontSendNotification);
     //testLabel.setColour(Label::textColourId, Colours::white);
-    //testLabel.setJustificationType(Justification::centred);
     testLabel.setBounds(0, 0, 200, 20);
 
     addAndMakeVisible(testLabel);
