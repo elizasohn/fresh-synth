@@ -100,15 +100,15 @@ void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     
-    //Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
+    // Set up MIDI in using the default midi device
     MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
-
     Logger::outputDebugString(midiDevice.name);
     Logger::outputDebugString(midiDevice.identifier);
 
     this->mEditorLogText = midiDevice.name;
 
     /*
+    Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
     if (midiDevices.isEmpty())
         Logger::outputDebugString("NO MIDI FOUNNNNNNNNNND");
     else
