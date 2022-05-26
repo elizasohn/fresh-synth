@@ -103,8 +103,12 @@ void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     //Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
     MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
 
-    /*
     Logger::outputDebugString(midiDevice.name);
+    Logger::outputDebugString(midiDevice.identifier);
+
+    this->mEditorLogText = midiDevice.name;
+
+    /*
     if (midiDevices.isEmpty())
         Logger::outputDebugString("NO MIDI FOUNNNNNNNNNND");
     else

@@ -15,7 +15,14 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (960, 540);
+
+    mEditorLogger.setText(p.mEditorLogText);
+    mEditorLogger.setColour(juce::Colours::white);
+    //mEditorLogger.setBounds(0, 0, 200, 20);
+    //mEditorLogger.setFontHeight(15.0f);
+    addAndMakeVisible(mEditorLogger);
+
+    setSize(960, 540);
 }
 
 FreshSynthAudioProcessorEditor::~FreshSynthAudioProcessorEditor()
