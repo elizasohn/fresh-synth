@@ -25,20 +25,17 @@ FreshSynthAudioProcessor::FreshSynthAudioProcessor()
                        )
 #endif
 {
-    // Set up MIDI in using the default midi device. Stretch goal: Choosable MIDI device menu
-    // Not sure this is the right place for this -p
+    // Get Default MIDI name and display. 
+    // Pretty sure we don't need this at all, but it's nice to see the midiDevice selected -p
     MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
     this->mMidiText = "MIDI Device: " + midiDevice.name;
     /*
         // A way to grab info on all the available midi devices. Uses JUCE array / MidiDeviceInfo
         Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
-        if (midiDevices.isEmpty())
-            Logger::outputDebugString("NO MIDI FOUNNNNNNNNNND");
-        else
-            Logger::outputDebugString("MIDI FOUNNNNNNNNNND");
     */
 
     // Note the synthesiser class will automatically delete these allocated sound / voices
+    // Note 2: This is currently monophonic
     synth.addSound(new SynthSound());
     synth.addVoice(new SynthVoice());
 }
@@ -117,6 +114,15 @@ void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     synth.setCurrentPlaybackSampleRate(sampleRate);
+
+    for (int i = 0; i < synth.getNumVoices(); ++i)
+    {
+        // Since our synth is a custom class and inherited from Juce::Synthesiser. We need to cast. -p
+        if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
+        {
+            voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
+        }
+    }
 }
 
 void FreshSynthAudioProcessor::releaseResources()
@@ -169,7 +175,7 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         buffer.clear (i, 0, buffer.getNumSamples());
 
 
-    // updates the parameter value tree for the synth
+    // updates the parameter value tree for the synth -p
     for (int i = 0; i < synth.getNumVoices(); ++i)
     {
         if (auto voice = dynamic_cast<SynthesiserVoice*>(synth.getVoice(i)))
@@ -236,4 +242,4 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new FreshSynthAudioProcessor();
 }
 
-// Synth Parameter Value Tree
+// Synth Parameter Value Tree will go here -p
