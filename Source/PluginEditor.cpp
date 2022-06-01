@@ -32,6 +32,7 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     setSize(960, 540);
 }
 
+
 FreshSynthAudioProcessorEditor::~FreshSynthAudioProcessorEditor()
 {
 }

@@ -23,6 +23,18 @@ FreshSynthAudioProcessor::FreshSynthAudioProcessor()
                        )
 #endif
 {
+    // Set up MIDI in using the default midi device. Stretch goal: Choosable MIDI device menu
+    // Not sure this is the right place for this -p
+    MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
+    this->mMidiText = "MIDI Device: " + midiDevice.name;
+    /*
+        // A way to grab info on all the available midi devices. Uses JUCE array / MidiDeviceInfo
+        Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
+        if (midiDevices.isEmpty())
+            Logger::outputDebugString("NO MIDI FOUNNNNNNNNNND");
+        else
+            Logger::outputDebugString("MIDI FOUNNNNNNNNNND");
+    */
 }
 
 FreshSynthAudioProcessor::~FreshSynthAudioProcessor()
@@ -98,18 +110,6 @@ void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    
-    // Set up MIDI in using the default midi device. Stretch goal: Choosable MIDI device menu
-    MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
-    this->mMidiText = "MIDI Device: " + midiDevice.name;
-    /* 
-        // A way to grab info on all the available midi devices. Uses JUCE array / MidiDeviceInfo
-        Array<MidiDeviceInfo> midiDevices = MidiInput::getAvailableDevices();
-        if (midiDevices.isEmpty())
-            Logger::outputDebugString("NO MIDI FOUNNNNNNNNNND");
-        else
-            Logger::outputDebugString("MIDI FOUNNNNNNNNNND");
-    */
 }
 
 void FreshSynthAudioProcessor::releaseResources()

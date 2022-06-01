@@ -32,9 +32,10 @@ private:
 
 
     // OUR VARIABLES ===============================================================
-    //DrawableText mEditorLogger;
     Label mMidiDisplay;
     Label mEditorLogger;
+
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FreshSynthAudioProcessorEditor)
 };
