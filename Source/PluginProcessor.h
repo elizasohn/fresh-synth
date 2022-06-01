@@ -58,6 +58,9 @@ public:
     String mMidiText = "Waiting...";
 
 private:
+    // Declare our synth object
+    Synthesiser synth;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FreshSynthAudioProcessor)
 };
