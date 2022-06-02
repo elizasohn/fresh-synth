@@ -17,8 +17,10 @@ void SynthVoice::stopNote(float velocity, bool allowTailOff)
 {
 	vcaADSR.noteOff();
 
-	//if (!allowTailOff || !vcaADSR.isActive())
-		//clearCurrentNote();
+	if (!allowTailOff || !vcaADSR.isActive())
+	{
+		clearCurrentNote();
+	}
 }
 
 void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
@@ -45,8 +47,8 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 
 	gain.setGainLinear(0.7f);			// We'll want a slider for this -p
 	vcaADSRParams.attack = 0.8f;
-	//vcaADSRParams.decay = 0.8f;
-	//vcaADSRParams.sustain = 1.0f;
+	vcaADSRParams.decay = 0.8f;
+	vcaADSRParams.sustain = 1.0f;
 	vcaADSRParams.release = 1.5f;
 	vcaADSR.setParameters(vcaADSRParams);
 	
@@ -55,40 +57,30 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
 {
-	jassert(isPrepared);			// Stop the project if prepareToPlay has not been called -p
+	jassert(isPrepared);			// This stops the project if prepareToPlay has not been called -p
 
-	/*
-	// potential fix for midi problems
-	jassert(isPrepared);
+	// if the voice is silent we return
 	if (!isVoiceActive())
 		return;
 
-	synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
+	synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, false);
 	synthBuffer.clear();
 
 	juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
 	osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 	gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-
 	vcaADSR.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 
-	if (startSample != 0)
-		//jassertfalse;
-
+	// go through each channel add the synth buffer to outputBuffer
 	for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
 	{
 		outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
 
+		// if the ADSR is not active - clear the current note
 		if (!vcaADSR.isActive())
+		{
 			clearCurrentNote();
+		}
 	}
-	*/
-	
 
-	juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
-	osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-	gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-
-	vcaADSR.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
-	
 }
