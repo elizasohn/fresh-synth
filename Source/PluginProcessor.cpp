@@ -188,6 +188,7 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     }
 
     /*
+    
     for (const juce::MidiMessageMetadata metadata : midiMessages)
         if (metadata.numBytes == 3)
             juce::Logger::writeToLog("TimeStamp: " + juce::String(metadata.getMessage().getTimeStamp()));
@@ -195,6 +196,7 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     // this calls all of the synthVoice's render next blocks as well
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+
 
     /*
     // This is the place where you'd normally do the guts of your plugin's
