@@ -55,11 +55,11 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     // OUR VARIABLES ===============================================================
-    String mMidiText = "Waiting...";
+    juce::String mMidiText = "Waiting...";
 
 private:
     // Declare our synth object
-    Synthesiser synth;
+    juce::Synthesiser synth;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FreshSynthAudioProcessor)

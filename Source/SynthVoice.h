@@ -3,21 +3,21 @@
 #include <JuceHeader.h>
 #include "SynthSound.h"
 
-class SynthVoice : public SynthesiserVoice
+class SynthVoice : public juce::SynthesiserVoice
 {
 public:
-	bool canPlaySound(SynthesiserSound* sound) override;
-	void startNote(int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override;
+	bool canPlaySound(juce::SynthesiserSound* sound) override;
+	void startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override;
 	void stopNote(float velocity, bool allowTailOff) override;
 	void controllerMoved(int controllerNumber, int newControllerValue) override;
 	void pitchWheelMoved(int newPitchWheelValue) override;
 	void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
-	void renderNextBlock(AudioBuffer< float >& outputBuffer, int startSample, int numSamples) override;
+	void renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) override;
 private:
-	dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); } };
-	dsp::Gain<float> gain;
-	ADSR vcaADSR;
-	ADSR::Parameters vcaADSRParams;
+	juce::dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); } };
+	juce::dsp::Gain<float> gain;
+	juce::ADSR vcaADSR;
+	juce::ADSR::Parameters vcaADSRParams;
 	juce::AudioBuffer<float> synthBuffer;
 
 	// For later -p

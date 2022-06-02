@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="IuepyI" name="FreshSynth" projectType="audioplug" useAppConfig="0"
               displaySplashScreen="1" jucerFormatVersion="1" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
-              companyName="BelAir">
+              companyName="BelAir" addUsingNamespaceToJuceHeader="0">
   <MAINGROUP id="p50FMC" name="FreshSynth">
     <GROUP id="{B123F260-97B1-8C09-F3C1-C3D0EE5CD732}" name="Source">
       <FILE id="Qyeyk4" name="PluginProcessor.cpp" compile="1" resource="0"

@@ -32,8 +32,8 @@ private:
 
 
     // OUR VARIABLES ===============================================================
-    Label mMidiDisplay;
-    Label mEditorLogger;
+    juce::Label mMidiDisplay;
+    juce::Label mEditorLogger;
 
 
 

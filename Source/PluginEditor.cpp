@@ -18,14 +18,14 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     float font_height = 10.0f;
-    mMidiDisplay.setFont(Font(font_height, Font::plain));
-    mMidiDisplay.setText(p.mMidiText, dontSendNotification);
+    mMidiDisplay.setFont(juce::Font(font_height, juce::Font::plain));
+    mMidiDisplay.setText(p.mMidiText, juce::dontSendNotification);
     //mMidiDisplay.setColour(Label::textColourId, Colours::white);
     mMidiDisplay.setBounds(0, 0, 200, font_height);
     addAndMakeVisible(mMidiDisplay);
 
-    mEditorLogger.setFont(Font(font_height, Font::plain));
-    mEditorLogger.setText("Waiting", dontSendNotification);
+    mEditorLogger.setFont(juce::Font(font_height, juce::Font::plain));
+    mEditorLogger.setText("Waiting", juce::dontSendNotification);
     mEditorLogger.setBounds(0, 10, 200, font_height);
     addAndMakeVisible(mEditorLogger);
 
