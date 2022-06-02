@@ -18,9 +18,7 @@ void SynthVoice::stopNote(float velocity, bool allowTailOff)
 	vcaADSR.noteOff();
 
 	if (!allowTailOff || !vcaADSR.isActive())
-	{
 		clearCurrentNote();
-	}
 }
 
 void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
@@ -78,9 +76,7 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int s
 
 		// if the ADSR is not active - clear the current note
 		if (!vcaADSR.isActive())
-		{
 			clearCurrentNote();
-		}
 	}
 
 }
