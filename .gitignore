@@ -1,0 +1,4 @@
+*.opendb
+JuceLibraryCode/
+Builds/
+*.lnk
