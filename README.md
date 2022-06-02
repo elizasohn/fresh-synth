@@ -26,3 +26,4 @@ Eliza Sohn
 - [JUCE: Build a MIDI Synthesizer](https://docs.juce.com/master/tutorial_synth_using_midi_input.html)
 - [The Audio Programmer: Building Your First Plug-In (JUCE overview)](https://youtu.be/Bw_OkHNpj1M)
 - [The Audio Programmer: Let's Build a Synth with Juce Series](https://youtu.be/nQR-wtzsRhA)
+
