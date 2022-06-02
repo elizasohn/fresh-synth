@@ -3,12 +3,12 @@
 // Check that Synthesiser Sound is casting correctly. If so we can play a sound
 bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound)
 {
-	return dynamic_cast<SynthesiserSound*>(sound) != nullptr;
+	return dynamic_cast<juce::SynthesiserSound*>(sound) != nullptr;
 }
 
 void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-	osc.setFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
 	//gain.setGainLinear(velocity);		// currently clips like crazy -p
 	vcaADSR.noteOn();
 }
@@ -35,7 +35,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 {
 	vcaADSR.setSampleRate(sampleRate);
 
-	dsp::ProcessSpec spec;
+	juce::dsp::ProcessSpec spec;
 	spec.maximumBlockSize = samplesPerBlock;
 	spec.sampleRate = sampleRate;
 	spec.numChannels = outputChannels;
@@ -53,7 +53,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	isPrepared = true;
 }
 
-void SynthVoice::renderNextBlock(AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
+void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
 {
 	jassert(isPrepared);			// Stop the project if prepareToPlay has not been called -p
 
@@ -85,9 +85,9 @@ void SynthVoice::renderNextBlock(AudioBuffer< float >& outputBuffer, int startSa
 	*/
 	
 
-	dsp::AudioBlock<float> audioBlock{ outputBuffer };
-	osc.process(dsp::ProcessContextReplacing<float>(audioBlock));
-	gain.process(dsp::ProcessContextReplacing<float>(audioBlock));
+	juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
+	osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+	gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
 	vcaADSR.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
 	

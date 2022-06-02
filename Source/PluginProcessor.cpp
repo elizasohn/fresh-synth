@@ -27,7 +27,7 @@ FreshSynthAudioProcessor::FreshSynthAudioProcessor()
 {
     // Get Default MIDI name and display. 
     // Pretty sure we don't need this at all, but it's nice to see the midiDevice selected -p
-    MidiDeviceInfo midiDevice = MidiInput::getDefaultDevice();
+    juce::MidiDeviceInfo midiDevice = juce::MidiInput::getDefaultDevice();
     this->mMidiText = "MIDI Device: " + midiDevice.name;
     /*
         // A way to grab info on all the available midi devices. Uses JUCE array / MidiDeviceInfo
@@ -178,7 +178,7 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // updates the parameter value tree for the synth -p
     for (int i = 0; i < synth.getNumVoices(); ++i)
     {
-        if (auto voice = dynamic_cast<SynthesiserVoice*>(synth.getVoice(i)))
+        if (auto voice = dynamic_cast<juce::SynthesiserVoice*>(synth.getVoice(i)))
         {
             // Update voice to new params
             // OSC controls

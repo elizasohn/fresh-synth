@@ -2,7 +2,7 @@
 
 #include <JuceHeader.h>
 
-class SynthSound : public SynthesiserSound
+class SynthSound : public juce::SynthesiserSound
 {
 public:
 	// These were originally declared in juce synthesiser sound - hence override
