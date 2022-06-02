@@ -115,7 +115,7 @@ void FreshSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     // initialisation that you need..
     synth.setCurrentPlaybackSampleRate(sampleRate);
 
-    for (int i = 0; i < synth.getNumVoices(); ++i)
+    for (int i = 0; i < synth.getNumVoices(); i++)
     {
         // Since our synth is a custom class and inherited from Juce::Synthesiser. We need to cast. -p
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
@@ -186,6 +186,12 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             // LFO
         }
     }
+
+    /*
+    for (const juce::MidiMessageMetadata metadata : midiMessages)
+        if (metadata.numBytes == 3)
+            juce::Logger::writeToLog("TimeStamp: " + juce::String(metadata.getMessage().getTimeStamp()));
+    */
 
     // this calls all of the synthVoice's render next blocks as well
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
