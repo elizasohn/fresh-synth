@@ -63,9 +63,32 @@ void SynthVoice::updateADSR(const float attack, const float decay, const float s
     
     vcaADSR.setParameters(vcaADSRParams);
 }
+
+void SynthVoice::initOsc(waveShape type)
+{
+	switch (type)
+	{
+	case tri:
+		break;
+	case saw:
+		osc.initialise([](float x) {return x / juce::MathConstants<float>::pi; });
+		break;
+	case square:
+		osc.initialise([](float x) { return x < 0.0f ? -1.0f : 1.0f; });
+		break;
+	case noise:
+		break;
+	case sine:
+	default:
+		osc.initialise([](float x) { return std::sin(x); });
+	}
+	oscInit = true;
+}
+
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
 {
 	jassert(isPrepared);			// This stops the project if prepareToPlay has not been called -p
+	jassert(oscInit);
 
 	// if the voice is silent we return
 	if (!isVoiceActive())

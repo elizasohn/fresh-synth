@@ -38,6 +38,8 @@ FreshSynthAudioProcessor::FreshSynthAudioProcessor()
     // Note 2: This is currently monophonic
     synth.addSound(new SynthSound());
     synth.addVoice(new SynthVoice());
+    SynthVoice* osc1 = dynamic_cast<SynthVoice*>(synth.getVoice(0));
+    osc1->initOsc(square);
 }
 
 FreshSynthAudioProcessor::~FreshSynthAudioProcessor()

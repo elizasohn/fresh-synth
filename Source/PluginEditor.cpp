@@ -23,11 +23,6 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     //mMidiDisplay.setColour(Label::textColourId, Colours::white);
     mMidiDisplay.setBounds(0, 0, 200, font_height);
     addAndMakeVisible(mMidiDisplay);
-
-    mEditorLogger.setFont(juce::Font(font_height, juce::Font::plain));
-    mEditorLogger.setText("Waiting", juce::dontSendNotification);
-    mEditorLogger.setBounds(0, 10, 200, font_height);
-    addAndMakeVisible(mEditorLogger);
     
     gainSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "GAIN", gainSlider);
     attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ATTACK", attackSlider);
