@@ -35,6 +35,7 @@ void SynthVoice::pitchWheelMoved(int newPitchWheelValue)
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels)
 {
 	vcaADSR.setSampleRate(sampleRate);
+	oscRand.setSeedRandomly();
 
 	juce::dsp::ProcessSpec spec;
 	spec.maximumBlockSize = samplesPerBlock;
@@ -54,41 +55,44 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	isPrepared = true;
 }
 
-void SynthVoice::updateADSR(const float attack, const float decay, const float sustain, const float release)
-{
-    vcaADSRParams.attack = attack;
-    vcaADSRParams.decay = decay;
-    vcaADSRParams.sustain = sustain;
-    vcaADSRParams.release = release;
-    
-    vcaADSR.setParameters(vcaADSRParams);
-}
 
-void SynthVoice::initOsc(waveShape type)
+void SynthVoice::setWave(const int waveType)
 {
-	switch (type)
+	switch (waveType)
 	{
-	case tri:
+	// Sine wave
+	case 0:
+		osc.initialise([](float x) { return std::sin(x); });
 		break;
-	case saw:
+	// Saw wave
+	case 1:
 		osc.initialise([](float x) {return x / juce::MathConstants<float>::pi; });
 		break;
-	case square:
+	// Square wave
+	case 2:
 		osc.initialise([](float x) { return x < 0.0f ? -1.0f : 1.0f; });
 		break;
-	case noise:
-		break;
-	case sine:
 	default:
-		osc.initialise([](float x) { return std::sin(x); });
+		jassertfalse;
 	}
-	oscInit = true;
+	oscReady = true;
+}
+
+
+void SynthVoice::updateADSR(const float attack, const float decay, const float sustain, const float release)
+{
+	vcaADSRParams.attack = attack;
+	vcaADSRParams.decay = decay;
+	vcaADSRParams.sustain = sustain;
+	vcaADSRParams.release = release;
+
+	vcaADSR.setParameters(vcaADSRParams);
 }
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
 {
 	jassert(isPrepared);			// This stops the project if prepareToPlay has not been called -p
-	jassert(oscInit);
+	jassert(oscReady);
 
 	// if the voice is silent we return
 	if (!isVoiceActive())
