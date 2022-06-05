@@ -40,6 +40,24 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
+    
+    attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    attackSlider.setTitle("Attack");
+    addAndMakeVisible(attackSlider);
+    
+    decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(decaySlider);
+    
+    sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    sustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(sustainSlider);
+    
+    releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(releaseSlider);
+    
     setSize(960, 540);
 }
 
@@ -57,14 +75,22 @@ void FreshSynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("Now, this is a story all about how my life got flipped-turned upside down", getLocalBounds(), juce::Justification::centred, 1);
+//    g.drawFittedText ("Now, this is a story all about how my life got flipped-turned upside down", getLocalBounds(), juce::Justification::centred, 1);
 }
 
-// Where you actually lay out the visual elements of the plugin -p
+
 void FreshSynthAudioProcessorEditor::resized()
 {
-    gainSlider.setBounds (50, 100, 200, 100);
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-
+    
+    const auto bounds = getLocalBounds().reduced (10);
+    const auto padding = 10;
+    const auto sliderWidth = bounds.getWidth() / 8 - padding;
+    const auto sliderHeight = bounds.getWidth() / 6 - padding;
+    const auto sliderStartX = bounds.getWidth()/2;
+    const auto sliderStartY = bounds.getHeight()/3 - (sliderHeight/2);
+    
+    attackSlider.setBounds (sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+    decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
 }
