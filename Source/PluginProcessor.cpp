@@ -250,4 +250,18 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new FreshSynthAudioProcessor();
 }
 
-// Synth Parameter Value Tree will go here -p
+//// Synth Parameter Value Tree
+//juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::createParams()
+//{
+//    std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+//    
+//    // Osc Select
+//    params.push_back(std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray {"Sine", "Saw", "Square" }, 0));
+//    
+//    // ADSR
+//    params.push_back (std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
+//    params.push_back (std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
+//    params.push_back (std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
+//    params.push_back (std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
+//    return { params.begin(), params.end() };
+//}
