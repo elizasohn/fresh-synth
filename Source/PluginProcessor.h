@@ -54,12 +54,16 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    juce::AudioProcessorValueTreeState apvts;
+    
     // OUR VARIABLES ===============================================================
     juce::String mMidiText = "Waiting...";
 
 private:
     // Declare our synth object
     juce::Synthesiser synth;
+    
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FreshSynthAudioProcessor)

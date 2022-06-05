@@ -43,7 +43,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	osc.prepare(spec);
 	gain.prepare(spec);
 
-	gain.setGainLinear(0.7f);			// We'll want a slider for this -p
+	gain.setGainLinear(0.7f);
 	vcaADSRParams.attack = 0.8f;
 	vcaADSRParams.decay = 0.8f;
 	vcaADSRParams.sustain = 1.0f;
@@ -53,6 +53,15 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	isPrepared = true;
 }
 
+void SynthVoice::updateADSR(const float attack, const float decay, const float sustain, const float release)
+{
+    vcaADSRParams.attack = attack;
+    vcaADSRParams.decay = decay;
+    vcaADSRParams.sustain = sustain;
+    vcaADSRParams.release = release;
+    
+    vcaADSR.setParameters(vcaADSRParams);
+}
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
 {
 	jassert(isPrepared);			// This stops the project if prepareToPlay has not been called -p
