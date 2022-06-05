@@ -28,7 +28,18 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     mEditorLogger.setText("Waiting", juce::dontSendNotification);
     mEditorLogger.setBounds(0, 10, 200, font_height);
     addAndMakeVisible(mEditorLogger);
+    
+    gainSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "GAIN", gainSlider);
+    attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ATTACK", attackSlider);
+    decayAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "DECAY", decaySlider);
+    sustainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "SUSTAIN", sustainSlider);
+    releaseAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RELEASE", releaseSlider);
+    
+    oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
 
+    gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
+    addAndMakeVisible(gainSlider);
     setSize(960, 540);
 }
 
@@ -52,6 +63,7 @@ void FreshSynthAudioProcessorEditor::paint (juce::Graphics& g)
 // Where you actually lay out the visual elements of the plugin -p
 void FreshSynthAudioProcessorEditor::resized()
 {
+    gainSlider.setBounds (50, 100, 200, 100);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
