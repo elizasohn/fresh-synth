@@ -57,7 +57,7 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
 
     // OSC
     oscSelector.addItemList({ "Sine", "Saw", "Square" }, 1);    
-
+    oscSelector.setSelectedId(1);
     addAndMakeVisible(oscSelector);
     
     setSize(960, 540);

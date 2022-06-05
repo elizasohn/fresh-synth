@@ -39,8 +39,6 @@ FreshSynthAudioProcessor::FreshSynthAudioProcessor()
     synth.addSound(new SynthSound());
     synth.addVoice(new SynthVoice());
     SynthVoice* osc1 = dynamic_cast<SynthVoice*>(synth.getVoice(0));
-    auto& wave = *apvts.getRawParameterValue("OSC");
-    osc1->setWave(wave);
 }
 
 FreshSynthAudioProcessor::~FreshSynthAudioProcessor()
@@ -274,7 +272,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", 0.0f, 1.0f, 0.5f));
 
     // Osc Select
-    params.push_back(std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray {"Sine", "Saw", "Square" }, 1));
+    params.push_back(std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray {"Sine", "Saw", "Square" }, 0));
     
     // ADSR
     params.push_back (std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
