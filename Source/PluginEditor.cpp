@@ -32,10 +32,12 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
 
+    // Gain
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
     
+    // ADSR
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     attackSlider.setTitle("Attack");
@@ -52,6 +54,11 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(releaseSlider);
+
+    // OSC
+    oscSelector.addItemList({ "Sine", "Saw", "Square" }, 1);    
+
+    addAndMakeVisible(oscSelector);
     
     setSize(960, 540);
 }
@@ -83,9 +90,11 @@ void FreshSynthAudioProcessorEditor::resized()
     const auto sliderHeight = bounds.getWidth() / 6 - padding;
     const auto sliderStartX = bounds.getWidth()/2;
     const auto sliderStartY = bounds.getHeight()/3 - (sliderHeight/2);
-    
+
     attackSlider.setBounds (sliderStartX, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
+
+    oscSelector.setBounds(10, 40, getWidth() - 20, 20);
 }

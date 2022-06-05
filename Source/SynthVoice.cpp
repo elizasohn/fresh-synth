@@ -60,22 +60,23 @@ void SynthVoice::setWave(const int waveType)
 {
 	switch (waveType)
 	{
-	// Sine wave
-	case 0:
-		osc.initialise([](float x) { return std::sin(x); });
-		break;
-	// Saw wave
-	case 1:
-		osc.initialise([](float x) {return x / juce::MathConstants<float>::pi; });
-		break;
-	// Square wave
-	case 2:
-		osc.initialise([](float x) { return x < 0.0f ? -1.0f : 1.0f; });
-		break;
-	default:
-		jassertfalse;
+		// Sine wave
+		case 0:
+			osc.initialise([](float x) { return std::sin(x); });
+			break;
+		// Saw wave
+		case 1:
+			osc.initialise([](float x) {return x / juce::MathConstants<float>::pi; });
+			break;
+		// Square wave
+		case 2:
+			osc.initialise([](float x) { return x < 0.0f ? -1.0f : 1.0f; });
+			break;
+		default:
+			jassertfalse;
 	}
 	oscReady = true;
+	// nice to haves: triangle wave, noise
 }
 
 
