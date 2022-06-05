@@ -28,7 +28,8 @@ void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
 
 void SynthVoice::pitchWheelMoved(int newPitchWheelValue)
 {
-
+	//juce::Logger::writeToLog(juce::String(newPitchWheelValue));
+	//osc.setFrequency(osc.getFrequency() + newPitchWheelValue);
 }
 
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels)
