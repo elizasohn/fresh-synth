@@ -37,12 +37,11 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
     
-    // ADSR
+    // ADSR (custom component for this would be nice so we can reuse it for filter envelope)
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     attackSlider.setRange(p.attackStart, p.attackEnd);
     attackSlider.setValue(p.attackDefault);
-    attackSlider.setSkewFactorFromMidPoint(0.75f);
     attackSlider.setTitle("Attack");
     addAndMakeVisible(attackSlider);
     
@@ -50,21 +49,18 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     decaySlider.setRange(p.decayStart, p.decayEnd);
     decaySlider.setValue(p.decayDefault);
-    decaySlider.setSkewFactorFromMidPoint(0.75f);
     addAndMakeVisible(decaySlider);
     
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     sustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     sustainSlider.setRange(p.sustainStart, p.sustainEnd);
     sustainSlider.setValue(p.sustainDefault);
-    sustainSlider.setSkewFactorFromMidPoint(0.3f);
     addAndMakeVisible(sustainSlider);
     
     releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     releaseSlider.setRange(p.releaseStart, p.releaseEnd);
     releaseSlider.setValue(p.releaseDefault);
-    releaseSlider.setSkewFactorFromMidPoint(0.25f);
     addAndMakeVisible(releaseSlider);
 
     // OSC

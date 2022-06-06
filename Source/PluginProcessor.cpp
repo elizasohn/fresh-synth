@@ -289,11 +289,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     releaseStart = 0.01f;
     releaseEnd = 4.0f;
     releaseDefault = 0.05f;
-
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float> { attackStart, attackEnd, }, attackDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { decayStart, decayEnd, }, decayDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { sustainStart, sustainEnd, },sustainDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { releaseStart, releaseEnd, },releaseDefault));
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>(attackStart, attackEnd, 0.01, 0.5, false), attackDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { decayStart, decayEnd, 0.01, 0.5, false }, decayDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { sustainStart, sustainEnd, 0.01, 1.2, false },sustainDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { releaseStart, releaseEnd, 0.01, 0.3, false },releaseDefault));
 
 
     return { params.begin(), params.end() };

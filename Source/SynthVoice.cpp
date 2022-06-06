@@ -16,7 +16,7 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
 
 void SynthVoice::stopNote(float velocity, bool allowTailOff)
 {
-	// Note: Sometimes the release holds even when set to 0.01 and I don't know why -p
+	// Note: Sometimes the release holds even when set to 0.01 and I don't know why -
 	vcaADSR.noteOff();
 
 	if (!allowTailOff || !vcaADSR.isActive())
@@ -72,7 +72,7 @@ void SynthVoice::setWave(const int waveType)
 			jassertfalse;
 	}
 	oscReady = true;
-	// nice to haves: triangle wave, noise
+	// nice to haves: triangle wave, noise... better sounding oscillators :P
 }
 
 
