@@ -316,7 +316,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     fReleaseDefault = 0.05f;
 
     // Filter
-    cutoffStart = 0.01f;
+    cutoffStart = 20.0f;
     cutoffEnd = 20000.0f;
     resonanceStart = 0.0f;
     resonanceEnd = 1.0f;
