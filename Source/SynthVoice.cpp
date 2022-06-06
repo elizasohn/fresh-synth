@@ -10,9 +10,9 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
 {
 	// Note: Currently there sesems to be a rather annoying portamento. Might have something to do with this code
 	//juce::Logger::outputDebugString("ON");
-	
 	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
 	//gain.setGainLinear(velocity);		// currently clips like crazy -p
+
 	vcaADSR.noteOn();
 }
 

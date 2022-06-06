@@ -282,7 +282,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     decayEnd = 4.0f;
     decayDefault = 0.65f;
 
-    sustainStart = 0.01f;
+    sustainStart = 0.0f;
     sustainEnd = 1.0f;
     sustainDefault = 0.3f;
 
