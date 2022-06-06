@@ -72,7 +72,7 @@ Instead of exporting the project to an IDE and building there we must use the ma
 * Filter ADSR envelope with amount knob
 * Polyphonic playback
 * Pitchbending
-* Rewritten oscillator class
+* Rewritten oscillator class with support for more waveforms (triangle, PWM control for square)
 * Second oscillator with fine tune control
 * Chorus effect
 * Delay effect
