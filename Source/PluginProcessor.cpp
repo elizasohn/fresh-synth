@@ -298,8 +298,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     params.push_back(std::make_unique<juce::AudioParameterFloat>("FRELEASE", "Filter Release", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.3f, false }, 0.05f));
 
     // FILTER
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("CUTOFF", "Filter Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, .5f, false), 20000.0f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RESONANCE", "Resonance Control", juce::NormalisableRange<float>(0.0f, 1.0f, 0.1f, 1.0f, false), 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("CUTOFF", "Filter Cutoff", juce::NormalisableRange<float>(20.0f, 20000.0f, 1.0f, .75f, false), 20000.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RESONANCE", "Resonance Control", juce::NormalisableRange<float>(0.0f, 1.0f, 0.001f, 1.0f, false), 0.0f));
     params.push_back(std::make_unique<juce::AudioParameterChoice>("FILTER", "Filter Type", juce::StringArray{ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24"}, 0));
 
     return { params.begin(), params.end() };
