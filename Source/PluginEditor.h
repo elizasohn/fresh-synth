@@ -35,6 +35,7 @@ private:
     juce::Label mMidiDisplay;
     // gain
     juce::Slider gainSlider;
+    juce::Label gainLabel;
     // asdr
     juce::Slider attackSlider;
     juce::Label attackLabel;

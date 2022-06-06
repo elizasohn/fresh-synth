@@ -40,6 +40,9 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
+    gainLabel.setText("Gain", dontSendNotification);
+    gainLabel.setJustificationType(Justification::centred);
+    gainLabel.attachToComponent(&gainSlider, false);
     
     // ADSR 
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
