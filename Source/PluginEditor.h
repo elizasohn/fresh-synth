@@ -37,9 +37,17 @@ private:
     juce::Slider gainSlider;
     // asdr
     juce::Slider attackSlider;
+    juce::Label attackLabel;
+    
     juce::Slider decaySlider;
+    juce::Label decayLabel;
+    
     juce::Slider sustainSlider;
+    juce::Label sustainLabel;
+    
     juce::Slider releaseSlider;
+    juce::Label releaseLabel;
+    
     // osc
     juce::ComboBox oscSelector;
     juce::ComboBox filterSelector;
