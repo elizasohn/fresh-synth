@@ -8,7 +8,6 @@ bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound)
 
 void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-	// Note: Currently there seems to be a rather annoying portamento. Might have something to do with this code
 	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber), true);
 	//gain.setGainLinear(velocity);		// currently clips like crazy -p
 	vcaADSR.noteOn();
@@ -16,7 +15,7 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
 
 void SynthVoice::stopNote(float velocity, bool allowTailOff)
 {
-	// Note: Sometimes the release holds even when set to 0.01 and I don't know why -
+	// Note: Sometimes the release holds when the sustain is set to 0.001
 	vcaADSR.noteOff();
 
 	if (!allowTailOff || !vcaADSR.isActive())

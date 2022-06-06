@@ -66,6 +66,7 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
 
     // Filter Controls
     cutoffSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    cutoffSlider.setMouseDragSensitivity(500);
     addAndMakeVisible(cutoffSlider);
     
     resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
