@@ -73,10 +73,27 @@ public:
     float releaseEnd;
     float releaseDefault;
 
+    // Filter ADSR Ranges
+    float fAttackStart;
+    float fAttackEnd;
+    float fAttackDefault;
+    float fDecayStart;
+    float fDecayEnd;
+    float fDecayDefault;
+    float fSustainStart;
+    float fSustainEnd;
+    float fSustainDefault;
+    float fReleaseStart;
+    float fReleaseEnd;
+    float fReleaseDefault;
+
+    // Filter Controls
     float cutoffStart;
     float cutoffEnd;
     float resonanceStart;
     float resonanceEnd;
+
+
 
 private:
     // Declare our synth object
