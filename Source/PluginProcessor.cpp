@@ -171,8 +171,8 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+    //for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+        //buffer.clear (i, 0, buffer.getNumSamples());
 
 
     // updates the parameter value tree for the synth -p
@@ -204,7 +204,8 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             auto& wave = *apvts.getRawParameterValue("OSC");
             voice->setWave(wave);
             auto& gain = *apvts.getRawParameterValue("GAIN");
-            voice->setGain(gain);
+            auto& velocity = *apvts.getRawParameterValue("VELOCITY");
+            voice->setGain(gain, velocity);
 
             // LFO
             
@@ -285,6 +286,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     
     // OSC
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("VELOCITY", "Velocity Amount", juce::NormalisableRange<float> { 0.01f, 1.0f, 0.01f, 0.5f, false }, 0.01f));
 
     // ADSR
     params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float> { 0.01f, 3.0f, 0.01f, 0.5f, false }, 0.01f));

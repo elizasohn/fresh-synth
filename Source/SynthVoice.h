@@ -13,7 +13,7 @@ public:
 	void pitchWheelMoved(int newPitchWheelValue) override;
 	void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
 	void setWave(const int waveType);
-	void setGain(const float newGain);
+	void setGain(const float newGain, const float newVelocity);
     void updateADSR(const float attack, const float decay, const float sustain, const float release);
 	void updateFilterADSR(const float attack, const float decay, const float sustain, const float release);
 	void updateFilter(const float cutoff, const float resonance, const int filterType);
@@ -32,4 +32,5 @@ private:
 
 	bool oscReady = false;
 	bool isPrepared = false;
+	float velocityAmt;
 };
