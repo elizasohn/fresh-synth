@@ -203,6 +203,8 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             // OSC controls
             auto& wave = *apvts.getRawParameterValue("OSC");
             voice->setWave(wave);
+            auto& gain = *apvts.getRawParameterValue("GAIN");
+            voice->setGain(gain);
 
             // LFO
             

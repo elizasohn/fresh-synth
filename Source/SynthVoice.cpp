@@ -80,6 +80,11 @@ void SynthVoice::setWave(const int waveType)
 	// nice to haves: triangle wave, noise... better sounding oscillators :P
 }
 
+void SynthVoice::setGain(const float newGain)
+{
+	gain.setGainLinear(newGain);
+}
+
 
 void SynthVoice::updateADSR(const float attack, const float decay, const float sustain, const float release)
 {
