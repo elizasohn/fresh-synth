@@ -14,7 +14,7 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 * Midi controller support
 * Standalone and VST3 support
 * 1x Monophonic Selectable Oscillator (sine, saw, square)
-* 1x VCA ADSR
+* 1x VCA ADSR envelope controller
 * 1x Switchable Ladder filter with cutoff and resonance controls. (Filters include Lowpass, Highpass, and Bandpass each with 12 or 24 db slopes)
 * 1x Gain control
 
@@ -44,7 +44,7 @@ If you don't hear any sound coming out of the synth:
 3. Run the Projucer and `file->open->FreshSynth.jucer` in the repo's root directory
 4. You will need to point projucer to the Juce and modules folders. Do this in Projucer from the `file->global paths` menu
 5. Select your exporter (supported: Visual Studio 2019, Xcode, Linux Makefile) and press the icon to open in your selected IDE
-5. In the IDE build the project and it should open as a standalone application. This should also place files in the appropriate build folders
+6. In the IDE build the project and it should open as a standalone application. This should also place VST3 files in the appropriate build folders
 
 ## Linux Installation Notes
 
@@ -69,15 +69,23 @@ Instead of exporting the project to an IDE and building there we must use the ma
 
 ## Planned Features
 
-* Filter section ADSR
-* Polyphony
-* Midi-file playback
+* Filter ADSR envelope with amount knob
+* Polyphonic playback
 * Rewritten oscillator class
 * Second oscillator with fine tune control
+* Chorus effect
+* Delay effect
+* Midi-file playback support
 
 ## Project Retrospective
 
-This project ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+### What was built
+
+### How it worked
+
+### What didn't work
+
+### What lessons learned
 
 ## References
 
