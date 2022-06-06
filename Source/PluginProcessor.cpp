@@ -191,8 +191,9 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
             auto& cutoffFreq = *apvts.getRawParameterValue("CUTOFF");
             auto& resonancePeak = *apvts.getRawParameterValue("RESONANCE");
+            auto& filterType = *apvts.getRawParameterValue("FILTER");
 
-            voice->updateFilter(cutoffFreq.load(), resonancePeak.load());
+            voice->updateFilter(cutoffFreq.load(), resonancePeak.load(), filterType.load());
             
             // OSC controls
             auto& wave = *apvts.getRawParameterValue("OSC");
@@ -301,13 +302,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { releaseStart, releaseEnd, 0.01f, 0.3f, false },releaseDefault));
 
     // Filter
-    cutoffStart = 0.0f;
+    cutoffStart = 0.01f;
     cutoffEnd = 20000.0f;
     resonanceStart = 0.0f;
     resonanceEnd = 1.0f;
 
     params.push_back(std::make_unique<juce::AudioParameterFloat>("CUTOFF", "Filter Cutoff", juce::NormalisableRange<float>(cutoffStart, cutoffEnd, 1.0f, .5f, false), 20000.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("RESONANCE", "Resonance Control", juce::NormalisableRange<float>(resonanceStart, resonanceEnd, 0.1f, 1.0f, false), 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("FILTER", "Filter Type", juce::StringArray{ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24"}, 0));
 
     // Filter ADSR
 

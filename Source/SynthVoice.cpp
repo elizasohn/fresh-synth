@@ -102,8 +102,9 @@ void SynthVoice::updateFilterADSR(const float attack, const float decay, const f
 	vcaADSR.setParameters(filterADSRParams);
 }
 
-void SynthVoice::updateFilter(const float cutoff, const float resonance)
+void SynthVoice::updateFilter(const float cutoff, const float resonance, const int filterType)
 {
+	filter.setMode(juce::dsp::LadderFilterMode(filterType));
 	filter.setCutoffFrequencyHz(cutoff);
 	filter.setResonance(resonance);
 }

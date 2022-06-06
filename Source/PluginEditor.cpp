@@ -31,6 +31,7 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     releaseAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RELEASE", releaseSlider);
     
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
+    filterSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "FILTER", filterSelector);
 
     cutoffSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "CUTOFF", cutoffSlider);
     resonanceSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RESONANCE", resonanceSlider);
@@ -79,6 +80,10 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     resonanceSlider.setRange(p.resonanceStart, p.resonanceEnd);
     addAndMakeVisible(resonanceSlider);
+
+    filterSelector.addItemList({ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24" }, 1);
+    filterSelector.setSelectedId(1);
+    addAndMakeVisible(filterSelector);
     
     setSize(960, 540);
 }
@@ -117,6 +122,7 @@ void FreshSynthAudioProcessorEditor::resized()
     releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
 
     oscSelector.setBounds(10, 40, getWidth() - 20, 20);
+    filterSelector.setBounds(30, 60, getWidth() - 20, 20);
 
     cutoffSlider.setBounds(bounds.getWidth() / 2, bounds.getHeight() / 2, 200, 200);
     resonanceSlider.setBounds(bounds.getWidth() / 2 + 200, bounds.getHeight() / 2, 150, 150);
