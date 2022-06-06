@@ -85,7 +85,7 @@ See above!
 
 ### How it worked
 
-A great deal of making this project was spent researching how the Juce framework works. We found several tutorials and videos explaining the basics of the pipeline and used it to set up the scaffolding for our synthesizer. Once we got over the initial hurdle of setting up a basic project in the frame work, we started diving further into the [API Documentation](https://docs.juce.com/master/index.html) to start adding new features. Having that basic framework in place made it a lot easier to start adding on components.
+A great deal of making this project was spent researching how the Juce framework works. We found several tutorials and videos explaining the basics of the pipeline and used it to set up the scaffolding for our synthesizer. Once we got over the initial hurdle of setting up a basic project in the frame work, we started diving further into the [API Documentation](https://docs.juce.com/master/index.html) to start adding new features. Having that basic framework in place and learning the basics of JUCE made it easier to start adding on components and greatly sped up development.
 
 ### What didn't work
 
