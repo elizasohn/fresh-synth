@@ -119,17 +119,19 @@ void FreshSynthAudioProcessorEditor::resized()
     const auto padding = 10;
     const auto sliderWidth = bounds.getWidth() / 8 - padding;
     const auto sliderHeight = bounds.getWidth() / 6 - padding;
-    const auto sliderStartX = bounds.getWidth()/2;
+    const auto halfWidth = bounds.getWidth()/2;
     const auto sliderStartY = bounds.getHeight()/3 - (sliderHeight/2);
+    const auto dialWidth = 175;
+    const auto dialHeight = 175;
 
-    attackSlider.setBounds (sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+    attackSlider.setBounds (halfWidth, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
 
-    oscSelector.setBounds(10, 40, getWidth() - 20, 20);
-    filterSelector.setBounds(30, 60, getWidth() - 20, 20);
+    oscSelector.setBounds(30, sliderStartY, getWidth()/2 - 50, 20);
+    filterSelector.setBounds(30, sliderStartY + 50, getWidth()/2 - 50, 20);
 
-    cutoffSlider.setBounds(bounds.getWidth() / 2, bounds.getHeight() / 2, 200, 200);
-    resonanceSlider.setBounds(bounds.getWidth() / 2 + 200, bounds.getHeight() / 2, 150, 150);
+    cutoffSlider.setBounds(halfWidth, bounds.getHeight() / 2, dialWidth, dialHeight);
+    resonanceSlider.setBounds(cutoffSlider.getRight() + 40, bounds.getHeight() / 2, dialWidth, dialHeight);
 }
