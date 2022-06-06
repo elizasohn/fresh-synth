@@ -38,22 +38,24 @@ private:
     // asdr
     juce::Slider attackSlider;
     juce::Label attackLabel;
-    
     juce::Slider decaySlider;
     juce::Label decayLabel;
-    
     juce::Slider sustainSlider;
     juce::Label sustainLabel;
-    
     juce::Slider releaseSlider;
     juce::Label releaseLabel;
     
     // osc
     juce::ComboBox oscSelector;
+    juce::Label oscLabel;
     juce::ComboBox filterSelector;
+    juce::Label filterLabel;
+    
     // filter
     juce::Slider cutoffSlider;
+    juce::Label cutoffLabel;
     juce::Slider resonanceSlider;
+    juce::Label resonanceLabel;
 
     // Selectors
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> oscSelAttachment;
