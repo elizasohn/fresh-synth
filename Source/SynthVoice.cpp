@@ -39,7 +39,6 @@ void SynthVoice::pitchWheelMoved(int newPitchWheelValue)
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels)
 {
 	vcaADSR.setSampleRate(sampleRate);
-	oscRand.setSeedRandomly();
 
 	juce::dsp::ProcessSpec spec;
 	spec.maximumBlockSize = samplesPerBlock;
@@ -50,6 +49,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	gain.prepare(spec);
 
 	gain.setGainLinear(0.7f);
+	// maybe don't need these anymore?
 	vcaADSRParams.attack = 0.8f;
 	vcaADSRParams.decay = 0.8f;
 	vcaADSRParams.sustain = 1.0f;

@@ -22,7 +22,6 @@ private:
 	juce::ADSR vcaADSR;
 	juce::ADSR::Parameters vcaADSRParams;
 	juce::AudioBuffer<float> synthBuffer;
-	juce::Random oscRand;
 	bool oscReady = false;
 	bool isPrepared = false;
 };
