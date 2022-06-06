@@ -38,7 +38,6 @@ FreshSynthAudioProcessor::FreshSynthAudioProcessor()
     // Note 2: This is currently monophonic
     synth.addSound(new SynthSound());
     synth.addVoice(new SynthVoice());
-    SynthVoice* osc1 = dynamic_cast<SynthVoice*>(synth.getVoice(0));
 }
 
 FreshSynthAudioProcessor::~FreshSynthAudioProcessor()
@@ -186,8 +185,20 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             auto& decay = *apvts.getRawParameterValue("DECAY");
             auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
             auto& release = *apvts.getRawParameterValue("RELEASE");
-
             voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
+
+            // Filter ADSR
+            auto& fAttack = *apvts.getRawParameterValue("ATTACK");
+            auto& fDecay = *apvts.getRawParameterValue("DECAY");
+            auto& fSustain = *apvts.getRawParameterValue("SUSTAIN");
+            auto& fRelease = *apvts.getRawParameterValue("RELEASE");
+            voice->updateFilterADSR(fAttack.load(), fDecay.load(), fSustain.load(), fRelease.load());
+            
+            // Filter
+            auto& cutoffFreq = *apvts.getRawParameterValue("CUTOFF");
+            auto& resonancePeak = *apvts.getRawParameterValue("RESONANCE");
+            auto& filterType = *apvts.getRawParameterValue("FILTER");
+            voice->updateFilter(cutoffFreq.load(), resonancePeak.load(), filterType.load());
             
             // OSC controls
             auto& wave = *apvts.getRawParameterValue("OSC");
@@ -265,17 +276,27 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::createParameters()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
-    
-    // Gain
+
+    // OSC
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", 0.0f, 1.0f, 0.5f));
-    params.push_back(std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray {"Sine", "Saw", "Square" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
 
     // ADSR
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>(0.01f, 3.0f, 0.01f, 0.5f, false), 0.01f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float> { 0.01f, 3.0f, 0.01f, 0.5f, false }, 0.01f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.5f, false }, 0.65f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.001f, 1.0f, 0.01f, 1.2f, false },0.3f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.3f, false },0.05f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.1f, 1.0f, 0.01f, 1.2f, false}, 0.3f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.3f, false }, 0.05f));
 
+    // FILTER ADSR
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("FATTACK", "Filter Attack", juce::NormalisableRange<float> { 0.01f, 3.0f, 0.01f, 0.5f, false}, 0.01f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("FDECAY", "Filter Decay", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.5f, false }, 0.65f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("FSUSTAIN", "Filter Sustain", juce::NormalisableRange<float> { 0.001f, 1.0f, 0.01f, 1.2f, false }, 0.3f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("FRELEASE", "Filter Release", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.3f, false }, 0.05f));
+
+    // FILTER
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("CUTOFF", "Filter Cutoff", juce::NormalisableRange<float> {20.0f, 20000.0f, 0.01f, 0.3f, false}, 20000.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RESONANCE", "Resonance Control", juce::NormalisableRange<float> {0.0f, 1.0f, 0.001f, 1.0f, false}, 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("FILTER", "Filter Type", juce::StringArray{ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24"}, 0));
 
     return { params.begin(), params.end() };
 }
