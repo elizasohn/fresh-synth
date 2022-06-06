@@ -268,32 +268,13 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     
     // Gain
     params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", 0.0f, 1.0f, 0.5f));
-
-    // Osc Select
     params.push_back(std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray {"Sine", "Saw", "Square" }, 0));
-    
+
     // ADSR
-    // There might be a better place for these...
-    attackStart = 0.01f;
-    attackEnd = 3.0f;
-    attackDefault = 0.01f;
-
-    decayStart = 0.01f;
-    decayEnd = 4.0f;
-    decayDefault = 0.65f;
-
-    sustainStart = 0.001f;
-    sustainEnd = 1.0f;
-    sustainDefault = 0.3f;
-
-    releaseStart = 0.01f;
-    releaseEnd = 4.0f;
-    releaseDefault = 0.05f;
-    
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>(attackStart, attackEnd, 0.01, 0.5, false), attackDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { decayStart, decayEnd, 0.01, 0.5, false }, decayDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { sustainStart, sustainEnd, 0.01, 1.2, false },sustainDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { releaseStart, releaseEnd, 0.01, 0.3, false },releaseDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>(0.01f, 3.0f, 0.01f, 0.5f, false), 0.01f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.5f, false }, 0.65f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.001f, 1.0f, 0.01f, 1.2f, false },0.3f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.3f, false },0.05f));
 
 
     return { params.begin(), params.end() };

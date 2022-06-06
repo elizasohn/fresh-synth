@@ -58,20 +58,7 @@ public:
     
     // OUR VARIABLES ===============================================================
     juce::String mMidiText = "Waiting...";
-    // ADSR Ranges
-    // These had to be assigned in PluginProcessor. For reference by ADSR sliders
-    float attackStart;
-    float attackEnd;
-    float attackDefault;
-    float decayStart;
-    float decayEnd;
-    float decayDefault;
-    float sustainStart;
-    float sustainEnd;
-    float sustainDefault;
-    float releaseStart;
-    float releaseEnd;
-    float releaseDefault;
+
 
 private:
     // Declare our synth object
