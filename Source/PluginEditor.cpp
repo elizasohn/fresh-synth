@@ -79,18 +79,34 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     oscSelector.addItemList({ "Sine", "Saw", "Square" }, 1);    
     oscSelector.setSelectedId(1);
     addAndMakeVisible(oscSelector);
+    addAndMakeVisible(oscLabel);
+    oscLabel.setText("Osc", dontSendNotification);
+    oscLabel.setJustificationType(Justification::left);
+    oscLabel.attachToComponent(&oscSelector, false);
 
     // Filter Controls
     cutoffSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     cutoffSlider.setMouseDragSensitivity(500);
     addAndMakeVisible(cutoffSlider);
+    addAndMakeVisible(cutoffLabel);
+    cutoffLabel.setText("Cut Off", dontSendNotification);
+    cutoffLabel.setJustificationType(Justification::bottomLeft);
+    cutoffLabel.attachToComponent(&cutoffSlider, false);
     
     resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     addAndMakeVisible(resonanceSlider);
+    addAndMakeVisible(resonanceLabel);
+    resonanceLabel.setText("Resonance", dontSendNotification);
+    resonanceLabel.setJustificationType(Justification::centredLeft);
+    resonanceLabel.attachToComponent(&resonanceSlider, false);
 
     filterSelector.addItemList({ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24" }, 1);
     filterSelector.setSelectedId(1);
     addAndMakeVisible(filterSelector);
+    addAndMakeVisible(filterLabel);
+    filterLabel.setText("Filter", dontSendNotification);
+    filterLabel.setJustificationType(Justification::left);
+    filterLabel.attachToComponent(&filterSelector, false);
     
     setSize(960, 540);
 }
@@ -117,21 +133,25 @@ void FreshSynthAudioProcessorEditor::resized()
 {
     const auto bounds = getLocalBounds().reduced (10);
     const auto padding = 10;
+    const auto XLpadding = 50;
     const auto sliderWidth = bounds.getWidth() / 8 - padding;
     const auto sliderHeight = bounds.getWidth() / 6 - padding;
     const auto halfWidth = bounds.getWidth()/2;
+    const auto halfHeight = bounds.getHeight()/2;
     const auto sliderStartY = bounds.getHeight()/3 - (sliderHeight/2);
     const auto dialWidth = 175;
     const auto dialHeight = 175;
+    
+    gainSlider.setBounds(30, sliderStartY, sliderWidth, sliderHeight);
 
     attackSlider.setBounds (halfWidth, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
 
-    oscSelector.setBounds(30, sliderStartY, getWidth()/2 - 50, 20);
-    filterSelector.setBounds(30, sliderStartY + 50, getWidth()/2 - 50, 20);
+    oscSelector.setBounds(gainSlider.getRight() + XLpadding, sliderStartY, getWidth()/4, 20);
+    filterSelector.setBounds(gainSlider.getRight() + XLpadding, sliderStartY + 100, getWidth()/4, 20);
 
-    cutoffSlider.setBounds(halfWidth, bounds.getHeight() / 2, dialWidth, dialHeight);
-    resonanceSlider.setBounds(cutoffSlider.getRight() + 40, bounds.getHeight() / 2, dialWidth, dialHeight);
+    cutoffSlider.setBounds(halfWidth + 40, halfHeight + 75, dialWidth, dialHeight);
+    resonanceSlider.setBounds(cutoffSlider.getRight() + 40, halfHeight + 75, dialWidth, dialHeight);
 }
