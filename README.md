@@ -23,7 +23,7 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 ![Fresh Synth Interface](./images/interfaceNumbered.gif "Fresh Synth Interface")
 
 1. Options screen where you can set audio and MIDI controller settings
-2. Overall gain control [currently not-implemented]
+2. Overall gain control
 3. Oscillator Selection menu (Sine, Saw, and Square)
 4. Filter Selection menu (lowpass, highpass, bandpass filters with 12 or 24 db slopes)
 5. Amplitude ADSR controller section
@@ -71,6 +71,7 @@ Instead of exporting the project to an IDE and building there we must use the ma
 
 * Filter ADSR envelope with amount knob
 * Polyphonic playback
+* Pitchbending
 * Rewritten oscillator class
 * Second oscillator with fine tune control
 * Chorus effect
