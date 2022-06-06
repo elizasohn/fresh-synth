@@ -33,7 +33,6 @@ private:
 
     // OUR VARIABLES ===============================================================
     juce::Label mMidiDisplay;
-    juce::Label mEditorLogger;
     // gain
     juce::Slider gainSlider;
     // asdr

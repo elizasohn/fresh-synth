@@ -23,11 +23,6 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     //mMidiDisplay.setColour(Label::textColourId, Colours::white);
     mMidiDisplay.setBounds(0, 0, 200, font_height);
     addAndMakeVisible(mMidiDisplay);
-
-    mEditorLogger.setFont(juce::Font(font_height, juce::Font::plain));
-    mEditorLogger.setText("Waiting", juce::dontSendNotification);
-    mEditorLogger.setBounds(0, 10, 200, font_height);
-    addAndMakeVisible(mEditorLogger);
     
     gainSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "GAIN", gainSlider);
     attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ATTACK", attackSlider);
@@ -37,26 +32,41 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
 
+    // Gain
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
     
+    // ADSR (custom component for this would be nice so we can reuse it for filter envelope)
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    attackSlider.setRange(p.attackStart, p.attackEnd);
+    attackSlider.setValue(p.attackDefault);
     attackSlider.setTitle("Attack");
     addAndMakeVisible(attackSlider);
     
     decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    decaySlider.setRange(p.decayStart, p.decayEnd);
+    decaySlider.setValue(p.decayDefault);
     addAndMakeVisible(decaySlider);
     
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     sustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    sustainSlider.setRange(p.sustainStart, p.sustainEnd);
+    sustainSlider.setValue(p.sustainDefault);
     addAndMakeVisible(sustainSlider);
     
     releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    releaseSlider.setRange(p.releaseStart, p.releaseEnd);
+    releaseSlider.setValue(p.releaseDefault);
     addAndMakeVisible(releaseSlider);
+
+    // OSC
+    oscSelector.addItemList({ "Sine", "Saw", "Square" }, 1);    
+    oscSelector.setSelectedId(1);
+    addAndMakeVisible(oscSelector);
     
     setSize(960, 540);
 }
@@ -88,9 +98,11 @@ void FreshSynthAudioProcessorEditor::resized()
     const auto sliderHeight = bounds.getWidth() / 6 - padding;
     const auto sliderStartX = bounds.getWidth()/2;
     const auto sliderStartY = bounds.getHeight()/3 - (sliderHeight/2);
-    
+
     attackSlider.setBounds (sliderStartX, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds (attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     sustainSlider.setBounds (decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
+
+    oscSelector.setBounds(10, 40, getWidth() - 20, 20);
 }
