@@ -278,11 +278,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     attackEnd = 3.0f;
     attackDefault = 0.01f;
 
-    decayStart = 0.02f;
+    decayStart = 0.01f;
     decayEnd = 4.0f;
     decayDefault = 0.65f;
 
-    sustainStart = 0.0f;
+    sustainStart = 0.001f;
     sustainEnd = 1.0f;
     sustainDefault = 0.3f;
 

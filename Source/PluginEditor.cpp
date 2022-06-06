@@ -50,7 +50,7 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     decaySlider.setRange(p.decayStart, p.decayEnd);
     decaySlider.setValue(p.decayDefault);
-    decaySlider.setSkewFactorFromMidPoint(0.3f);
+    decaySlider.setSkewFactorFromMidPoint(0.75f);
     addAndMakeVisible(decaySlider);
     
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
