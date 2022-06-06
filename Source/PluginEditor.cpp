@@ -40,8 +40,8 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
-    gainLabel.setText("Gain", dontSendNotification);
-    gainLabel.setJustificationType(Justification::centred);
+    gainLabel.setText("Gain", juce::dontSendNotification);
+    gainLabel.setJustificationType(juce::Justification::centred);
     gainLabel.attachToComponent(&gainSlider, false);
     
     // ADSR 
@@ -50,32 +50,32 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     attackSlider.setTitle("Attack");
     addAndMakeVisible(attackSlider);
     addAndMakeVisible(attackLabel);
-    attackLabel.setText("Attack", dontSendNotification);
-    attackLabel.setJustificationType(Justification::centred);
+    attackLabel.setText("Attack", juce::dontSendNotification);
+    attackLabel.setJustificationType(juce::Justification::centred);
     attackLabel.attachToComponent(&attackSlider, false);
     
     decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(decaySlider);
     addAndMakeVisible(decayLabel);
-    decayLabel.setText("Decay", dontSendNotification);
-    decayLabel.setJustificationType(Justification::centred);
+    decayLabel.setText("Decay", juce::dontSendNotification);
+    decayLabel.setJustificationType(juce::Justification::centred);
     decayLabel.attachToComponent(&decaySlider, false);
     
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     sustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(sustainSlider);
     addAndMakeVisible(sustainLabel);
-    sustainLabel.setText("Sustain", dontSendNotification);
-    sustainLabel.setJustificationType(Justification::centred);
+    sustainLabel.setText("Sustain", juce::dontSendNotification);
+    sustainLabel.setJustificationType(juce::Justification::centred);
     sustainLabel.attachToComponent(&sustainSlider, false);
     
     releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(releaseSlider);
     addAndMakeVisible(releaseLabel);
-    releaseLabel.setText("Release", dontSendNotification);
-    releaseLabel.setJustificationType(Justification::centred);
+    releaseLabel.setText("Release", juce::dontSendNotification);
+    releaseLabel.setJustificationType(juce::Justification::centred);
     releaseLabel.attachToComponent(&releaseSlider, false);
 
     // OSC
@@ -83,8 +83,8 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     oscSelector.setSelectedId(1);
     addAndMakeVisible(oscSelector);
     addAndMakeVisible(oscLabel);
-    oscLabel.setText("Osc", dontSendNotification);
-    oscLabel.setJustificationType(Justification::left);
+    oscLabel.setText("Osc", juce::dontSendNotification);
+    oscLabel.setJustificationType(juce::Justification::left);
     oscLabel.attachToComponent(&oscSelector, false);
 
     // Filter Controls
@@ -92,23 +92,23 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     cutoffSlider.setMouseDragSensitivity(500);
     addAndMakeVisible(cutoffSlider);
     addAndMakeVisible(cutoffLabel);
-    cutoffLabel.setText("Cut Off", dontSendNotification);
-    cutoffLabel.setJustificationType(Justification::bottomLeft);
+    cutoffLabel.setText("Cut Off", juce::dontSendNotification);
+    cutoffLabel.setJustificationType(juce::Justification::bottomLeft);
     cutoffLabel.attachToComponent(&cutoffSlider, false);
     
     resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     addAndMakeVisible(resonanceSlider);
     addAndMakeVisible(resonanceLabel);
-    resonanceLabel.setText("Resonance", dontSendNotification);
-    resonanceLabel.setJustificationType(Justification::centredLeft);
+    resonanceLabel.setText("Resonance", juce::dontSendNotification);
+    resonanceLabel.setJustificationType(juce::Justification::centredLeft);
     resonanceLabel.attachToComponent(&resonanceSlider, false);
 
     filterSelector.addItemList({ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24" }, 1);
     filterSelector.setSelectedId(1);
     addAndMakeVisible(filterSelector);
     addAndMakeVisible(filterLabel);
-    filterLabel.setText("Filter", dontSendNotification);
-    filterLabel.setJustificationType(Justification::left);
+    filterLabel.setText("Filter", juce::dontSendNotification);
+    filterLabel.setJustificationType(juce::Justification::left);
     filterLabel.attachToComponent(&filterSelector, false);
     
     setSize(960, 540);
