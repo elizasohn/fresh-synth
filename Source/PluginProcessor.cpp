@@ -205,17 +205,16 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             
             // Update Voice
             voice->setWave(wave);
-<<<<<<< HEAD
-            auto& gain = *apvts.getRawParameterValue("GAIN");
-            auto& velocity = *apvts.getRawParameterValue("VELOCITY");
-            voice->setGain(gain, velocity);
-=======
             voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
             voice->updateFilterADSR(fAttack.load(), fDecay.load(), fSustain.load(), fRelease.load());
             voice->updateFilter(cutoffFreq.load(), resonancePeak.load(), filterType.load());
             
-            
->>>>>>> 50c5b26c5acb378353385dedfb4989e5dc42e530
+            // OSC controls
+            auto& wave = *apvts.getRawParameterValue("OSC");
+            voice->setWave(wave);
+            auto& gain = *apvts.getRawParameterValue("GAIN");
+            auto& velocity = *apvts.getRawParameterValue("VELOCITY");
+            voice->setGain(gain, velocity);
 
             // LFO
             

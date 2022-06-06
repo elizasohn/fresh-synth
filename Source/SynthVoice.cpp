@@ -9,16 +9,12 @@ bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound)
 void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
 	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber), true);
-<<<<<<< HEAD
 	// Doesn't work - I suspect because we are updating the gain repeatedly along with other params
 	// Need to set up a listener.
 	//juce::Logger::outputDebugString(juce::String(velocity));
 	//float oldGain = gain.getGainLinear();
 	//float newGain = (velocity * velocityAmt) + oldGain;
 	//gain.setGainLinear(newGain);
-=======
-	gain.setGainLinear(velocity);		// currently clips like crazy -p
->>>>>>> 50c5b26c5acb378353385dedfb4989e5dc42e530
 	vcaADSR.noteOn();
     filterADSR.noteOn();
 }
@@ -62,12 +58,8 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	osc.prepare(spec);
 	gain.prepare(spec);
 	filter.prepare(spec);
-<<<<<<< HEAD
 	velocityAmt = 0.5f;
 
-=======
-    
->>>>>>> 50c5b26c5acb378353385dedfb4989e5dc42e530
 	gain.setGainLinear(0.7f);
 	filter.setMode(juce::dsp::LadderFilterMode::LPF24);
 	filter.setCutoffFrequencyHz(20000.0f);
