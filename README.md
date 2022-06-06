@@ -23,7 +23,7 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 ![Fresh Synth Interface](./images/interfaceNumbered.gif "Fresh Synth Interface")
 
 1. Options screen where you can set audio and MIDI controller settings
-2. Overall gain control
+2. Overall gain control [currently not-implemented]
 3. Oscillator Selection menu (Sine, Saw, and Square)
 4. Filter Selection menu (lowpass, highpass, bandpass filters with 12 or 24 db slopes)
 5. Amplitude ADSR controller section
@@ -81,11 +81,19 @@ Instead of exporting the project to an IDE and building there we must use the ma
 
 ### What was built
 
+See above!
+
 ### How it worked
+
+A great deal of making this project was spent researching how the Juce framework works. We found several tutorials and videos explaining the basics of the pipeline and used it to set up the scaffolding for our synthesizer. Once we got over the initial hurdle of setting up a basic project in the frame work, we started diving further into the [API Documentation](https://docs.juce.com/master/index.html) to start adding new features. Having that basic framework in place made it a lot easier to start adding on components.
 
 ### What didn't work
 
+There is still a great deal about how Juce works that remains a mystery and a seemingly endless number of ways to approach different problems. This isn't helped by the somewhat vague tone the documentation can take. This means that sometimes we will go down a rabbit hole implementing one feature for a long time only to discover a new class that does the work for us. We have also had some trouble with the Juce's oscillator and ADSR classes. They seem to have several strange bugs (for one the ADSR will hold onto notes randomly if you set the sustain low enough) and general quirks that are undesirable. In the future we plan to replace these classes with custom ones that perform better.
+
 ### What lessons learned
+
+Like any project using a new framework/technology, there was a lot more research that went into building this synthesizer than we even anticipated. So by that token, starting earlier on researching and building out several prototypes beforehand would have been ideal.
 
 ## References
 
