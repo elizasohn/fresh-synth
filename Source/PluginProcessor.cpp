@@ -281,7 +281,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
 
     
     // Gain
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", 0.0f, 1.0f, 0.5f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", 0.0f, 1.0f, 1.0f));
     
     // OSC
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
