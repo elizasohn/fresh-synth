@@ -18,15 +18,24 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 * 1x Switchable Ladder filter with cutoff and resonance controls. (Filters include Lowpass, Highpass, and Bandpass each with 12 or 24 db slopes)
 * 1x Gain control
 
+## UI Layout and Usage
+
+![Fresh Synth Interface](./images/interfaceNumbered.gif "Fresh Synth Interface")
+
+1. Options screen where you can set audio and MIDI controller settings
+2. Overall gain control
+3. Oscillator Selection menu (Sine, Saw, and Square)
+4. Filter Selection menu (lowpass, highpass, bandpass filters with 12 or 24 db slopes)
+5. Amplitude ADSR controller section
+6. Filter controller section section
+
+Once configured, simply play notes on your midi device and change parameters for some synthesizer goodness! (Bonus points if you play the Fresh Prince of Bel Air theme song)
+
 ## Usage Troubleshooting
 
 If you don't hear any sound coming out of the synth:
 
 * Check the options screen located on the top left of the application window to make sure the correct midi controller and audio driver are selected
-
-## Project Retrospective
-
-This project ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 ## Installation Windows / OSX
 
@@ -39,7 +48,7 @@ This project ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 ## Linux Installation Notes
 
-You will need to have a C++ compiler and a series of dependencies in order for this project to build. 
+You will need to have a C++ compiler, make, and a series of dependencies in order for this project to build.  
 From the [Official Documentation](https://github.com/juce-framework/JUCE/blob/master/docs/Linux%20Dependencies.md)
 ```
 sudo apt update
@@ -57,6 +66,18 @@ Instead of exporting the project to an IDE and building there we must use the ma
 2. Press `file->save` to save the project and generate a makefile
 3. With the correct dependencies installed: navigate to `fresh-synth-of-bel-air/Builds/LinuxMakeFile` in the terminal and run `make`. This will build the project
 4. Once complete, navigate to `fresh-synth-of-bel-air/Builds/LinuxMakefile/build` and run the `FreshSynth` file to open the synth
+
+## Planned Features
+
+* Filter section ADSR
+* Polyphony
+* Midi-file playback
+* Rewritten oscillator class
+* Second oscillator with fine tune control
+
+## Project Retrospective
+
+This project ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 
 ## References
 
