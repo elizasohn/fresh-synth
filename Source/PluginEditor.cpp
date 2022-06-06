@@ -41,23 +41,39 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
     addAndMakeVisible(gainSlider);
     
-    // ADSR (custom component for this would be nice so we can reuse it for filter envelope)
+    // ADSR 
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     attackSlider.setTitle("Attack");
     addAndMakeVisible(attackSlider);
+    addAndMakeVisible(attackLabel);
+    attackLabel.setText("Attack", dontSendNotification);
+    attackLabel.setJustificationType(Justification::centred);
+    attackLabel.attachToComponent(&attackSlider, false);
     
     decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(decaySlider);
+    addAndMakeVisible(decayLabel);
+    decayLabel.setText("Decay", dontSendNotification);
+    decayLabel.setJustificationType(Justification::centred);
+    decayLabel.attachToComponent(&decaySlider, false);
     
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     sustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(sustainSlider);
+    addAndMakeVisible(sustainLabel);
+    sustainLabel.setText("Sustain", dontSendNotification);
+    sustainLabel.setJustificationType(Justification::centred);
+    sustainLabel.attachToComponent(&sustainSlider, false);
     
     releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
     addAndMakeVisible(releaseSlider);
+    addAndMakeVisible(releaseLabel);
+    releaseLabel.setText("Release", dontSendNotification);
+    releaseLabel.setJustificationType(Justification::centred);
+    releaseLabel.attachToComponent(&releaseSlider, false);
 
     // OSC
     oscSelector.addItemList({ "Sine", "Saw", "Square" }, 1);    
@@ -99,7 +115,6 @@ void FreshSynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void FreshSynthAudioProcessorEditor::resized()
 {
-    
     const auto bounds = getLocalBounds().reduced (10);
     const auto padding = 10;
     const auto sliderWidth = bounds.getWidth() / 8 - padding;
