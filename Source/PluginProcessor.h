@@ -58,41 +58,6 @@ public:
     
     // OUR VARIABLES ===============================================================
     juce::String mMidiText = "Waiting...";
-    // ADSR Ranges
-    // These had to be assigned in PluginProcessor. For reference by ADSR sliders
-    float attackStart;
-    float attackEnd;
-    float attackDefault;
-    float decayStart;
-    float decayEnd;
-    float decayDefault;
-    float sustainStart;
-    float sustainEnd;
-    float sustainDefault;
-    float releaseStart;
-    float releaseEnd;
-    float releaseDefault;
-
-    // Filter ADSR Ranges
-    float fAttackStart;
-    float fAttackEnd;
-    float fAttackDefault;
-    float fDecayStart;
-    float fDecayEnd;
-    float fDecayDefault;
-    float fSustainStart;
-    float fSustainEnd;
-    float fSustainDefault;
-    float fReleaseStart;
-    float fReleaseEnd;
-    float fReleaseDefault;
-
-    // Filter Controls
-    float cutoffStart;
-    float cutoffEnd;
-    float resonanceStart;
-    float resonanceEnd;
-
 
 
 private:

@@ -44,27 +44,19 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     // ADSR (custom component for this would be nice so we can reuse it for filter envelope)
     attackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     attackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
-    attackSlider.setRange(p.attackStart, p.attackEnd);
-    attackSlider.setValue(p.attackDefault);
     attackSlider.setTitle("Attack");
     addAndMakeVisible(attackSlider);
     
     decaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     decaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
-    decaySlider.setRange(p.decayStart, p.decayEnd);
-    decaySlider.setValue(p.decayDefault);
     addAndMakeVisible(decaySlider);
     
     sustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     sustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
-    sustainSlider.setRange(p.sustainStart, p.sustainEnd);
-    sustainSlider.setValue(p.sustainDefault);
     addAndMakeVisible(sustainSlider);
     
     releaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     releaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
-    releaseSlider.setRange(p.releaseStart, p.releaseEnd);
-    releaseSlider.setValue(p.releaseDefault);
     addAndMakeVisible(releaseSlider);
 
     // OSC
@@ -74,11 +66,9 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
 
     // Filter Controls
     cutoffSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    //cutoffSlider.setRange(p.cutoffStart, p.cutoffEnd);
     addAndMakeVisible(cutoffSlider);
     
     resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    resonanceSlider.setRange(p.resonanceStart, p.resonanceEnd);
     addAndMakeVisible(resonanceSlider);
 
     filterSelector.addItemList({ "LPF12", "HPF12", "BPF12", "LPF24", "HPF24", "BPF24" }, 1);
