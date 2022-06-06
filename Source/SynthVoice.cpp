@@ -9,7 +9,7 @@ bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound)
 void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
 	// Note: Currently there seems to be a rather annoying portamento. Might have something to do with this code
-	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber), true);
 	//gain.setGainLinear(velocity);		// currently clips like crazy -p
 	vcaADSR.noteOn();
 }
