@@ -180,32 +180,42 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
         {
-            // ADSR
+            // OSC controls
+            auto& wave = *apvts.getRawParameterValue("OSC");
+            // Gain
+//            auto& gain = *apvts.getRawParameterValue("GAIN");
+//            voice->setWave(wave);
+            
+            // Amp ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
             auto& decay = *apvts.getRawParameterValue("DECAY");
             auto& sustain = *apvts.getRawParameterValue("SUSTAIN");
             auto& release = *apvts.getRawParameterValue("RELEASE");
-            voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
-
+            
             // Filter ADSR
-            auto& fAttack = *apvts.getRawParameterValue("ATTACK");
-            auto& fDecay = *apvts.getRawParameterValue("DECAY");
-            auto& fSustain = *apvts.getRawParameterValue("SUSTAIN");
-            auto& fRelease = *apvts.getRawParameterValue("RELEASE");
-            voice->updateFilterADSR(fAttack.load(), fDecay.load(), fSustain.load(), fRelease.load());
+            auto& fAttack = *apvts.getRawParameterValue("FATTACK");
+            auto& fDecay = *apvts.getRawParameterValue("FDECAY");
+            auto& fSustain = *apvts.getRawParameterValue("FSUSTAIN");
+            auto& fRelease = *apvts.getRawParameterValue("FRELEASE");
             
             // Filter
             auto& cutoffFreq = *apvts.getRawParameterValue("CUTOFF");
             auto& resonancePeak = *apvts.getRawParameterValue("RESONANCE");
             auto& filterType = *apvts.getRawParameterValue("FILTER");
-            voice->updateFilter(cutoffFreq.load(), resonancePeak.load(), filterType.load());
             
-            // OSC controls
-            auto& wave = *apvts.getRawParameterValue("OSC");
+            // Update Voice
             voice->setWave(wave);
+<<<<<<< HEAD
             auto& gain = *apvts.getRawParameterValue("GAIN");
             auto& velocity = *apvts.getRawParameterValue("VELOCITY");
             voice->setGain(gain, velocity);
+=======
+            voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
+            voice->updateFilterADSR(fAttack.load(), fDecay.load(), fSustain.load(), fRelease.load());
+            voice->updateFilter(cutoffFreq.load(), resonancePeak.load(), filterType.load());
+            
+            
+>>>>>>> 50c5b26c5acb378353385dedfb4989e5dc42e530
 
             // LFO
             
@@ -297,7 +307,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     // FILTER ADSR
     params.push_back(std::make_unique<juce::AudioParameterFloat>("FATTACK", "Filter Attack", juce::NormalisableRange<float> { 0.01f, 3.0f, 0.01f, 0.5f, false}, 0.01f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("FDECAY", "Filter Decay", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.5f, false }, 0.65f));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("FSUSTAIN", "Filter Sustain", juce::NormalisableRange<float> { 0.001f, 1.0f, 0.01f, 1.2f, false }, 0.3f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("FSUSTAIN", "Filter Sustain", juce::NormalisableRange<float> { 0.01f, 1.0f, 0.01f, 1.2f, false }, 0.3f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("FRELEASE", "Filter Release", juce::NormalisableRange<float> { 0.01f, 4.0f, 0.01f, 0.3f, false }, 0.05f));
 
     // FILTER

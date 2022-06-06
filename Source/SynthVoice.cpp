@@ -9,24 +9,35 @@ bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound)
 void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
 	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber), true);
+<<<<<<< HEAD
 	// Doesn't work - I suspect because we are updating the gain repeatedly along with other params
 	// Need to set up a listener.
 	//juce::Logger::outputDebugString(juce::String(velocity));
 	//float oldGain = gain.getGainLinear();
 	//float newGain = (velocity * velocityAmt) + oldGain;
 	//gain.setGainLinear(newGain);
+=======
+	gain.setGainLinear(velocity);		// currently clips like crazy -p
+>>>>>>> 50c5b26c5acb378353385dedfb4989e5dc42e530
 	vcaADSR.noteOn();
+    filterADSR.noteOn();
 }
 
 void SynthVoice::stopNote(float velocity, bool allowTailOff)
 {
 	// Note: Sometimes the release holds when the sustain is set to 0.001
 	vcaADSR.noteOff();
+    filterADSR.noteOff();
 
 	if (!allowTailOff || !vcaADSR.isActive())
 		clearCurrentNote();
 }
 
+//void SynthVoice::setLevel(const float gainValue)
+//{
+////    auto& gain = processorChain.template get<gainIndex>();
+////    gain.setGainLinear(gainValue);
+//}
 void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
 {
 
@@ -40,8 +51,8 @@ void SynthVoice::pitchWheelMoved(int newPitchWheelValue)
 
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels)
 {
-	vcaADSR.setSampleRate(sampleRate);
 	filterADSR.setSampleRate(sampleRate);
+    vcaADSR.setSampleRate(sampleRate);
 
 	juce::dsp::ProcessSpec spec;
 	spec.maximumBlockSize = samplesPerBlock;
@@ -51,8 +62,12 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	osc.prepare(spec);
 	gain.prepare(spec);
 	filter.prepare(spec);
+<<<<<<< HEAD
 	velocityAmt = 0.5f;
 
+=======
+    
+>>>>>>> 50c5b26c5acb378353385dedfb4989e5dc42e530
 	gain.setGainLinear(0.7f);
 	filter.setMode(juce::dsp::LadderFilterMode::LPF24);
 	filter.setCutoffFrequencyHz(20000.0f);
@@ -103,21 +118,22 @@ void SynthVoice::updateADSR(const float attack, const float decay, const float s
 	vcaADSR.setParameters(vcaADSRParams);
 }
 
-void SynthVoice::updateFilterADSR(const float attack, const float decay, const float sustain, const float release)
+void SynthVoice::updateFilterADSR(const float fAttack, const float fDecay, const float fSustain, const float fRelease)
 {
-	filterADSRParams.attack = attack;
-	filterADSRParams.decay = decay;
-	filterADSRParams.sustain = sustain;
-	filterADSRParams.release = release;
+    filterADSRParams.attack = fAttack;
+    filterADSRParams.decay = fDecay;
+    filterADSRParams.sustain = fSustain;
+    filterADSRParams.release = fRelease;
 
-	vcaADSR.setParameters(filterADSRParams);
+	filterADSR.setParameters(filterADSRParams);
 }
 
 void SynthVoice::updateFilter(const float cutoff, const float resonance, const int filterType)
 {
 	filter.setMode(juce::dsp::LadderFilterMode(filterType));
-	filter.setCutoffFrequencyHz(cutoff);
-	filter.setResonance(resonance);
+	
+    filter.setCutoffFrequencyHz(cutoff);
+    filter.setResonance(resonance);
 }
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
@@ -130,14 +146,15 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int s
 		return;
 
 	synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, false);
+    filterADSR.applyEnvelopeToBuffer(synthBuffer, 0, numSamples);
 	synthBuffer.clear();
 
 	juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
 	osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 	gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    vcaADSR.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 	filter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-	vcaADSR.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
-
+    
 	// go through each channel add the synth buffer to outputBuffer
 	for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
 	{
@@ -147,6 +164,4 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int s
 		if (!vcaADSR.isActive())
 			clearCurrentNote();
 	}
-
-
 }
