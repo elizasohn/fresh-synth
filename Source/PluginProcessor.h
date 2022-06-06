@@ -73,6 +73,11 @@ public:
     float releaseEnd;
     float releaseDefault;
 
+    float cutoffStart;
+    float cutoffEnd;
+    float resonanceStart;
+    float resonanceEnd;
+
 private:
     // Declare our synth object
     juce::Synthesiser synth;

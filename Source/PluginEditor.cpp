@@ -32,6 +32,9 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
 
+    cutoffSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "CUTOFF", cutoffSlider);
+    resonanceSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RESONANCE", resonanceSlider);
+
     // Gain
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 50);
@@ -67,6 +70,15 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     oscSelector.addItemList({ "Sine", "Saw", "Square" }, 1);    
     oscSelector.setSelectedId(1);
     addAndMakeVisible(oscSelector);
+
+    // Filter Controls
+    cutoffSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    cutoffSlider.setRange(p.cutoffStart, p.cutoffEnd);
+    addAndMakeVisible(cutoffSlider);
+    
+    resonanceSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    resonanceSlider.setRange(p.resonanceStart, p.resonanceEnd);
+    addAndMakeVisible(resonanceSlider);
     
     setSize(960, 540);
 }
@@ -105,4 +117,7 @@ void FreshSynthAudioProcessorEditor::resized()
     releaseSlider.setBounds (sustainSlider.getRight(), sliderStartY, sliderWidth, sliderHeight);
 
     oscSelector.setBounds(10, 40, getWidth() - 20, 20);
+
+    cutoffSlider.setBounds(bounds.getWidth() / 2, bounds.getHeight() / 2, 200, 200);
+    resonanceSlider.setBounds(bounds.getWidth() / 2 + 200, bounds.getHeight() / 2, 150, 150);
 }

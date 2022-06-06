@@ -37,6 +37,7 @@ void SynthVoice::pitchWheelMoved(int newPitchWheelValue)
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels)
 {
 	vcaADSR.setSampleRate(sampleRate);
+	filterADSR.setSampleRate(sampleRate);
 
 	juce::dsp::ProcessSpec spec;
 	spec.maximumBlockSize = samplesPerBlock;
@@ -45,8 +46,13 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 
 	osc.prepare(spec);
 	gain.prepare(spec);
+	filter.prepare(spec);
 
 	gain.setGainLinear(0.7f);
+	filter.setMode(juce::dsp::LadderFilterMode::LPF24);
+	filter.setCutoffFrequencyHz(20000.0f);
+	filter.setEnabled(true);
+	filter.setResonance(0.0f);
 	
 	isPrepared = true;
 }
@@ -86,6 +92,22 @@ void SynthVoice::updateADSR(const float attack, const float decay, const float s
 	vcaADSR.setParameters(vcaADSRParams);
 }
 
+void SynthVoice::updateFilterADSR(const float attack, const float decay, const float sustain, const float release)
+{
+	filterADSRParams.attack = attack;
+	filterADSRParams.decay = decay;
+	filterADSRParams.sustain = sustain;
+	filterADSRParams.release = release;
+
+	vcaADSR.setParameters(filterADSRParams);
+}
+
+void SynthVoice::updateFilter(const float cutoff, const float resonance)
+{
+	filter.setCutoffFrequencyHz(cutoff);
+	filter.setResonance(resonance);
+}
+
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
 {
 	jassert(isPrepared);			// This stops the project if prepareToPlay has not been called -p
@@ -101,6 +123,7 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int s
 	juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
 	osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 	gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+	filter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 	vcaADSR.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 
 	// go through each channel add the synth buffer to outputBuffer

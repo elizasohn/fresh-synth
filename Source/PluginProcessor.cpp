@@ -188,6 +188,11 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             auto& release = *apvts.getRawParameterValue("RELEASE");
 
             voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
+
+            auto& cutoffFreq = *apvts.getRawParameterValue("CUTOFF");
+            auto& resonancePeak = *apvts.getRawParameterValue("RESONANCE");
+
+            voice->updateFilter(cutoffFreq.load(), resonancePeak.load());
             
             // OSC controls
             auto& wave = *apvts.getRawParameterValue("OSC");
@@ -272,7 +277,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     // Osc Select
     params.push_back(std::make_unique<juce::AudioParameterChoice> ("OSC", "Oscillator", juce::StringArray {"Sine", "Saw", "Square" }, 0));
     
-    // ADSR
+    // VCA ADSR
     // There might be a better place for these...
     attackStart = 0.01f;
     attackEnd = 3.0f;
@@ -290,10 +295,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout FreshSynthAudioProcessor::cr
     releaseEnd = 4.0f;
     releaseDefault = 0.05f;
     
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>(attackStart, attackEnd, 0.01, 0.5, false), attackDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { decayStart, decayEnd, 0.01, 0.5, false }, decayDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { sustainStart, sustainEnd, 0.01, 1.2, false },sustainDefault));
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { releaseStart, releaseEnd, 0.01, 0.3, false },releaseDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ATTACK", "Attack", juce::NormalisableRange<float>(attackStart, attackEnd, 0.01f, 0.5f, false), attackDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { decayStart, decayEnd, 0.01f, 0.5f, false }, decayDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { sustainStart, sustainEnd, 0.01f, 1.2f, false },sustainDefault));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { releaseStart, releaseEnd, 0.01f, 0.3f, false },releaseDefault));
+
+    // Filter
+    cutoffStart = 0.0f;
+    cutoffEnd = 20000.0f;
+    resonanceStart = 0.0f;
+    resonanceEnd = 1.0f;
+
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("CUTOFF", "Filter Cutoff", juce::NormalisableRange<float>(cutoffStart, cutoffEnd, 1.0f, .5f, false), 20000.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RESONANCE", "Resonance Control", juce::NormalisableRange<float>(resonanceStart, resonanceEnd, 0.1f, 1.0f, false), 0.0f));
+
+    // Filter ADSR
 
 
     return { params.begin(), params.end() };
