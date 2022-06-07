@@ -27,7 +27,8 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 3. Oscillator Selection menu (Sine, Saw, and Square)
 4. Filter Selection menu (lowpass, highpass, bandpass filters with 12 or 24 db slopes)
 5. Amplitude ADSR controller section
-6. Filter controller section section
+6. Filter ADSR controller section
+7. Filter controller section section
 
 Once configured, simply play notes on your midi device and change parameters for some synthesizer goodness! (Bonus points if you play the Fresh Prince of Bel Air theme song)
 
@@ -69,11 +70,11 @@ Instead of exporting the project to an IDE and building there we must use the ma
 
 ## Planned Features
 
-* Filter ADSR envelope with amount knob
 * Polyphonic playback
-* Pitchbending
 * Rewritten oscillator class with support for more waveforms (triangle, PWM control for square)
 * Second oscillator with fine tune control
+* Velocity control support
+* Pitchbending
 * Chorus effect
 * Delay effect
 * Midi-file playback support
@@ -86,11 +87,11 @@ See above!
 
 ### How it worked
 
-A great deal of making this project was spent researching how the Juce framework works. We found several tutorials and videos explaining the basics of the pipeline and used it to set up the scaffolding for our synthesizer. Once we got over the initial hurdle of setting up a basic project in the frame work, we started diving further into the [API Documentation](https://docs.juce.com/master/index.html) to start adding new features. Having that basic framework in place and learning the basics of JUCE made it easier to start adding on components and greatly sped up development.
+A great deal of making this project was spent researching how the Juce framework works. We found several tutorials and videos explaining the basics of the audio pipeline / making a synthesizer and used them to set up the scaffolding for our project. Once we got over the initial hurdle of setting up a basic project, we started diving further into the [API Documentation](https://docs.juce.com/master/index.html) to start adding new features. Having that basic framework in place and learning the ins and outs of JUCE made it easier to start adding on new components as it became more feature complete. Overall, we're very happy with where the project has ended up so far.
 
 ### What didn't work
 
-There is still a great deal about how Juce works that remains a mystery and a seemingly endless number of ways to approach different problems. This isn't helped by the somewhat vague tone the documentation can take. This means that sometimes we will go down a rabbit hole implementing one feature for a long time only to discover a new class that does the work for us. We have also had some trouble with the Juce's oscillator and ADSR classes. They seem to have several strange bugs (for one the ADSR will hold onto notes randomly if you set the sustain low enough) and general quirks that are undesirable. In the future we plan to replace these classes with custom ones that perform better.
+There is still a great deal about how Juce works that remains a mystery and a seemingly endless number of ways to approach different problems. This isn't helped by the somewhat vague tone the documentation can take at times. This means that sometimes we will go down a rabbit hole implementing one feature for a long time only to discover an oddly named class that does the work for us. We have also had some trouble with the Juce's oscillator and ADSR classes. They seem to have several strange bugs (for one the ADSR will hold onto notes randomly if you set the sustain low enough) and general quirks that are undesirable. In the future we plan to replace these classes with custom ones that perform better.
 
 ### What lessons learned
 
