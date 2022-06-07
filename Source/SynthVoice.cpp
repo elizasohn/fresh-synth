@@ -29,11 +29,6 @@ void SynthVoice::stopNote(float velocity, bool allowTailOff)
 		clearCurrentNote();
 }
 
-//void SynthVoice::setLevel(const float gainValue)
-//{
-////    auto& gain = processorChain.template get<gainIndex>();
-////    gain.setGainLinear(gainValue);
-//}
 void SynthVoice::controllerMoved(int controllerNumber, int newControllerValue)
 {
 
@@ -123,9 +118,17 @@ void SynthVoice::updateFilterADSR(const float fAttack, const float fDecay, const
 void SynthVoice::updateFilter(const float cutoff, const float resonance, const int filterType)
 {
 	filter.setMode(juce::dsp::LadderFilterMode(filterType));
-	
-    filter.setCutoffFrequencyHz(cutoff);
-    filter.setResonance(resonance);
+	auto mod = filterADSR.getNextSample();
+	filter.setResonance(resonance);
+	modFilter(cutoff, mod);
+}
+
+void SynthVoice::modFilter(const float cutoff, const float mod)
+{
+	float freq = cutoff * mod;
+	freq = std::max(freq, 20.0f);
+	freq = std::min(freq, 20000.0f);
+	filter.setCutoffFrequencyHz(freq);
 }
 
 void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples)
@@ -145,6 +148,7 @@ void SynthVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int s
 	osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 	gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     vcaADSR.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
+
 	filter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
 	// go through each channel add the synth buffer to outputBuffer

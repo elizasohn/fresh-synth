@@ -180,12 +180,11 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i)))
         {
-            // OSC controls
+            // OSC
             auto& wave = *apvts.getRawParameterValue("OSC");
-            // Gain
-//            auto& gain = *apvts.getRawParameterValue("GAIN");
-//            voice->setWave(wave);
-            
+            auto& gain = *apvts.getRawParameterValue("GAIN");
+            auto& velocity = *apvts.getRawParameterValue("VELOCITY");
+
             // Amp ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
             auto& decay = *apvts.getRawParameterValue("DECAY");
@@ -204,16 +203,12 @@ void FreshSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             auto& filterType = *apvts.getRawParameterValue("FILTER");
             
             // Update Voice
-            voice->setWave(wave);
             voice->updateADSR(attack.load(), decay.load(), sustain.load(), release.load());
             voice->updateFilterADSR(fAttack.load(), fDecay.load(), fSustain.load(), fRelease.load());
             voice->updateFilter(cutoffFreq.load(), resonancePeak.load(), filterType.load());
             
             // OSC controls
-            auto& wave = *apvts.getRawParameterValue("OSC");
             voice->setWave(wave);
-            auto& gain = *apvts.getRawParameterValue("GAIN");
-            auto& velocity = *apvts.getRawParameterValue("VELOCITY");
             voice->setGain(gain, velocity);
 
             // LFO
