@@ -20,9 +20,8 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     float font_height = 10.0f;
     mMidiDisplay.setFont(juce::Font(font_height, juce::Font::plain));
     mMidiDisplay.setText(p.mMidiText, juce::dontSendNotification);
-    //mMidiDisplay.setColour(Label::textColourId, Colours::white);
     mMidiDisplay.setBounds(0, 0, 200, font_height);
-    addAndMakeVisible(mMidiDisplay);
+    //addAndMakeVisible(mMidiDisplay);      // commented out because it does not display the currently selected midi, only default. Just use options panel for now
     
     gainSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "GAIN", gainSlider);
     attackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "ATTACK", attackSlider);

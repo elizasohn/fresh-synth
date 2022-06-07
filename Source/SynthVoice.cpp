@@ -9,7 +9,12 @@ bool SynthVoice::canPlaySound(juce::SynthesiserSound* sound)
 void SynthVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
 	osc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber), true);
-	//gain.setGainLinear(velocity);		// currently clips like crazy -p
+	// Doesn't work - I suspect because we are updating the gain repeatedly along with other params
+	// Need to set up a listener.
+	//juce::Logger::outputDebugString(juce::String(velocity));
+	//float oldGain = gain.getGainLinear();
+	//float newGain = (velocity * velocityAmt) + oldGain;
+	//gain.setGainLinear(newGain);
 	vcaADSR.noteOn();
 }
 
@@ -46,6 +51,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 	osc.prepare(spec);
 	gain.prepare(spec);
 	filter.prepare(spec);
+	velocityAmt = 0.5f;
 
 	gain.setGainLinear(0.7f);
 	filter.setMode(juce::dsp::LadderFilterMode::LPF24);
@@ -78,6 +84,12 @@ void SynthVoice::setWave(const int waveType)
 	}
 	oscReady = true;
 	// nice to haves: triangle wave, noise... better sounding oscillators :P
+}
+
+void SynthVoice::setGain(const float newGain, const float newVelocity)
+{
+	gain.setGainLinear(newGain);
+	velocityAmt = newVelocity;
 }
 
 
