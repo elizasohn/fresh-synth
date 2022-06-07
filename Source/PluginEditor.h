@@ -36,6 +36,7 @@ private:
     // gain
     juce::Slider gainSlider;
     juce::Label gainLabel;
+    
     // asdr
     juce::Slider attackSlider;
     juce::Label attackLabel;
@@ -57,6 +58,16 @@ private:
     juce::Label cutoffLabel;
     juce::Slider resonanceSlider;
     juce::Label resonanceLabel;
+    
+    // filter asdr
+    juce::Slider fAttackSlider;
+    juce::Label fAttackLabel;
+    juce::Slider fDecaySlider;
+    juce::Label fDecayLabel;
+    juce::Slider fSustainSlider;
+    juce::Label fSustainLabel;
+    juce::Slider fReleaseSlider;
+    juce::Label fReleaseLabel;
 
     // Selectors
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> oscSelAttachment;
@@ -69,6 +80,11 @@ private:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> decayAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> sustainAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> releaseAttachment;
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fAttackAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fDecayAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fSustainAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> fReleaseAttachment;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> cutoffSliderAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> resonanceSliderAttachment;
