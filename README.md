@@ -7,6 +7,10 @@ A fun cross-platform synthesizer to play around with. Created for Bart Massey's 
 Pete Wells  
 Eliza Sohn
 
+## Video Link
+[Build Instructions and Demo](https://youtu.be/mgoawzzeguM)
+
+
 ## Features
 
 This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) framework. It features
@@ -29,7 +33,7 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 4. Filter Selection menu (lowpass, highpass, bandpass filters with 12 or 24 db slopes)
 5. Amplitude ADSR controller section
 6. Filter ADSR controller section
-7. Filter controller section section
+7. Filter Cutoff and Resonance controller section
 
 Once configured, simply play notes on your midi device and change parameters for some synthesizer goodness! (Bonus points if you play the Fresh Prince of Bel-Air theme song)
 
