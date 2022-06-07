@@ -83,7 +83,7 @@ Instead of exporting the project to an IDE and building there we must use the ma
 
 ## Known Bugs
 
-* ADSR will hold onto notes for an arbitrailily long amount of time when the sustain is set very low
+* ADSR will hold onto notes for an arbitrarily long amount of time when the sustain is set very low
 * Filter ADSR currently introduces pops and clicks occasionally
 
 ## Project Retrospective
