@@ -100,9 +100,13 @@ A great deal of making this project was spent researching how the Juce framework
 
 There is still a great deal about how Juce works that remains a mystery and a seemingly endless number of ways to approach different problems. This isn't helped by the somewhat vague tone the documentation can take at times. This means that sometimes we will go down a rabbit hole implementing one feature for a long time only to discover an oddly named class that does the work for us. We have also had some trouble with the Juce's oscillator and ADSR classes. They seem to have several strange bugs (for one the ADSR will hold onto notes randomly if you set the sustain low enough) and general quirks that are undesirable. In the future we plan to replace these classes with custom ones that perform better.
 
+Given more time, we also would've liked to consolidate some parts into reusable components (for example, the ASDRs on both the filter and VCA). The UI component of this also took more time than expected, as the styling was its own framework that had some similarities to CSS but was ultimately much different. Separating each section in the UI into components would've helped with organization and styling to have a more responsive design.
+
 ### What lessons learned
 
 Like any project using a new framework/technology, there was a lot more research that went into building this synthesizer than we even anticipated. So by that token, starting earlier on researching and building out several prototypes beforehand would have been ideal.
+
+We had a somewhat modest MVP in our proposal of 1x Oscillator with selectable Sine, Saw, and Square waves, Volume control, a Low-Pass FIlter, Monophony, and Keyboard control. This worked in our favor, as we were able to successfully reach our MVP and include many of our stretch goals, such as MIDI support, VST3 support, and a graphical interface. 
 
 ## References
 
