@@ -17,6 +17,7 @@ public:
     void updateADSR(const float attack, const float decay, const float sustain, const float release);
 	void updateFilterADSR(const float attack, const float decay, const float sustain, const float release);
 	void updateFilter(const float cutoff, const float resonance, const int filterType);
+	void modFilter(const float cutoff, const float mod);
 	void renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) override;
 private:
 	//juce::dsp::Oscillator<float> osc{ [](float x) { return std::sin(x); } };

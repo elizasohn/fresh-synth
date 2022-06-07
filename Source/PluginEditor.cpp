@@ -31,6 +31,10 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "OSC", oscSelector);
     filterSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.apvts, "FILTER", filterSelector);
+    fAttackAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "FATTACK", fAttackSlider);
+    fDecayAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "FDECAY", fDecaySlider);
+    fSustainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "FSUSTAIN", fSustainSlider);
+    fReleaseAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "FRELEASE", fReleaseSlider);
 
     cutoffSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "CUTOFF", cutoffSlider);
     resonanceSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.apvts, "RESONANCE", resonanceSlider);
@@ -110,6 +114,39 @@ FreshSynthAudioProcessorEditor::FreshSynthAudioProcessorEditor (FreshSynthAudioP
     filterLabel.setJustificationType(juce::Justification::left);
     filterLabel.attachToComponent(&filterSelector, false);
     
+    // Filter ADSR
+    fAttackSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    fAttackSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(fAttackSlider);
+    addAndMakeVisible(fAttackLabel);
+    fAttackLabel.setText("Filter Attack", juce::dontSendNotification);
+    fAttackLabel.setJustificationType(juce::Justification::centred);
+    fAttackLabel.attachToComponent(&fAttackSlider, false);
+    
+    fDecaySlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    fDecaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(fDecaySlider);
+    addAndMakeVisible(fDecayLabel);
+    fDecayLabel.setText("Filter Decay", juce::dontSendNotification);
+    fDecayLabel.setJustificationType(juce::Justification::centred);
+    fDecayLabel.attachToComponent(&fDecaySlider, false);
+    
+    fSustainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    fSustainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(fSustainSlider);
+    addAndMakeVisible(fSustainLabel);
+    fSustainLabel.setText("Filter Sustain", juce::dontSendNotification);
+    fSustainLabel.setJustificationType(juce::Justification::centred);
+    fSustainLabel.attachToComponent(&fSustainSlider, false);
+    
+    fReleaseSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
+    fReleaseSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    addAndMakeVisible(fReleaseSlider);
+    addAndMakeVisible(fReleaseLabel);
+    fReleaseLabel.setText("Filter Release", juce::dontSendNotification);
+    fReleaseLabel.setJustificationType(juce::Justification::centred);
+    fReleaseLabel.attachToComponent(&fReleaseSlider, false);
+    
     setSize(960, 540);
 }
 
@@ -156,4 +193,9 @@ void FreshSynthAudioProcessorEditor::resized()
 
     cutoffSlider.setBounds(halfWidth + 40, halfHeight + 75, dialWidth, dialHeight);
     resonanceSlider.setBounds(cutoffSlider.getRight() + 40, halfHeight + 75, dialWidth, dialHeight);
+    
+    fAttackSlider.setBounds (padding, halfHeight + 75, sliderWidth, sliderHeight);
+    fDecaySlider.setBounds (fAttackSlider.getRight() + padding, halfHeight + 75, sliderWidth, sliderHeight);
+    fSustainSlider.setBounds (fDecaySlider.getRight() + padding, halfHeight + 75, sliderWidth, sliderHeight);
+    fReleaseSlider.setBounds (fSustainSlider.getRight(), halfHeight + 75, sliderWidth, sliderHeight);
 }
