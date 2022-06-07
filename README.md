@@ -30,26 +30,27 @@ This is a simple subtractive synthesizer made in the [JUCE](https://juce.com/) f
 6. Filter ADSR controller section
 7. Filter controller section section
 
-Once configured, simply play notes on your midi device and change parameters for some synthesizer goodness! (Bonus points if you play the Fresh Prince of Bel Air theme song)
+Once configured, simply play notes on your midi device and change parameters for some synthesizer goodness! (Bonus points if you play the Fresh Prince of Bel-Air theme song)
 
 ## Usage Troubleshooting
 
 If you don't hear any sound coming out of the synth:
 
 * Check the options screen located on the top left of the application window to make sure the correct midi controller and audio driver are selected
+* Ensure that the gain, and filter/vca ADSRs are set to settings that produce sound.
 
 ## Installation Windows / OSX
 
 1. Clone this Repo
 2. Download and extract [JUCE](https://juce.com/get-juce)
-3. Run the Projucer and `file->open->FreshSynth.jucer` in the repo's root directory
+3. Run the Projucer and `file->open->FreshSynth.jucer` in the repo's root directory. [See the official JUCE tutorial on Projucer](https://docs.juce.com/master/tutorial_new_projucer_project.html)
 4. You will need to point projucer to the Juce and modules folders. Do this in Projucer from the `file->global paths` menu
 5. Select your exporter (supported: Visual Studio 2019, Xcode, Linux Makefile) and press the icon to open in your selected IDE
 6. In the IDE build the project and it should open as a standalone application. This should also place VST3 files in the appropriate build folders
 
 ## Linux Installation Notes
 
-You will need to have a C++ compiler, make, and a series of dependencies in order for this project to build.  
+You will need to have a C++ compiler, make, and several dependencies in order for this project to build.  
 From the [Official Documentation](https://github.com/juce-framework/JUCE/blob/master/docs/Linux%20Dependencies.md)
 ```
 sudo apt update
