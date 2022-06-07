@@ -90,7 +90,7 @@ void SynthVoice::setWave(const int waveType)
 
 void SynthVoice::setGain(const float newGain, const float newVelocity)
 {
-	gain.setGainLinear(newGain);
+	gain.setGainDecibels(juce::Decibels::gainToDecibels(newGain));
 	velocityAmt = newVelocity;
 }
 
