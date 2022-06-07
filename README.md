@@ -4,7 +4,7 @@ A fun cross-platform synthesizer to play around with. Created for Bart Massey's 
 
 ## Authors
 
-Peter Wells  
+Pete Wells  
 Eliza Sohn
 
 ## Features
